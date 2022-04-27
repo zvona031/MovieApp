@@ -7,15 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1160A5132819D23A005DB1C3 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1160A5122819D23A005DB1C3 /* Realm */; };
+		1160A5152819D23A005DB1C3 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1160A5142819D23A005DB1C3 /* RealmSwift */; };
+		1160A5182819D27F005DB1C3 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1160A5172819D27F005DB1C3 /* Movie.swift */; };
+		11B59CCE2819C7A900E6D342 /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B59CCD2819C7A900E6D342 /* AppDelegate+Injection.swift */; };
 		11CEFAC22819ACC300E1FB27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CEFAC12819ACC300E1FB27 /* AppDelegate.swift */; };
 		11CEFAC42819ACC300E1FB27 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CEFAC32819ACC300E1FB27 /* SceneDelegate.swift */; };
 		11CEFAC62819ACC300E1FB27 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CEFAC52819ACC300E1FB27 /* ViewController.swift */; };
 		11CEFAC92819ACC300E1FB27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11CEFAC72819ACC300E1FB27 /* Main.storyboard */; };
 		11CEFACB2819ACC700E1FB27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11CEFACA2819ACC700E1FB27 /* Assets.xcassets */; };
 		11CEFACE2819ACC700E1FB27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11CEFACC2819ACC700E1FB27 /* LaunchScreen.storyboard */; };
+		11CEFAD72819AEEC00E1FB27 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11CEFAD62819AEEC00E1FB27 /* SnapKit */; };
+		11CEFADA2819B18600E1FB27 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 11CEFAD92819B18600E1FB27 /* Resolver */; };
+		11CEFAE22819BFDA00E1FB27 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 11CEFAE12819BFDA00E1FB27 /* .swiftlint.yml */; };
+		11CEFAE62819C35500E1FB27 /* ConstructViewsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CEFAE52819C35500E1FB27 /* ConstructViewsProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1160A5172819D27F005DB1C3 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		11B59CCD2819C7A900E6D342 /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
 		11CEFABE2819ACC300E1FB27 /* demoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11CEFAC12819ACC300E1FB27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11CEFAC32819ACC300E1FB27 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +34,8 @@
 		11CEFACA2819ACC700E1FB27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11CEFACD2819ACC700E1FB27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11CEFACF2819ACC700E1FB27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11CEFAE12819BFDA00E1FB27 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		11CEFAE52819C35500E1FB27 /* ConstructViewsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructViewsProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,12 +43,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1160A5152819D23A005DB1C3 /* RealmSwift in Frameworks */,
+				1160A5132819D23A005DB1C3 /* Realm in Frameworks */,
+				11CEFADA2819B18600E1FB27 /* Resolver in Frameworks */,
+				11CEFAD72819AEEC00E1FB27 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1160A5162819D272005DB1C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1160A5172819D27F005DB1C3 /* Movie.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		11B59CCA2819C70500E6D342 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		11CEFAB52819ACC200E1FB27 = {
 			isa = PBXGroup;
 			children = (
@@ -56,15 +87,36 @@
 		11CEFAC02819ACC300E1FB27 /* demoApp */ = {
 			isa = PBXGroup;
 			children = (
-				11CEFAC12819ACC300E1FB27 /* AppDelegate.swift */,
-				11CEFAC32819ACC300E1FB27 /* SceneDelegate.swift */,
-				11CEFAC52819ACC300E1FB27 /* ViewController.swift */,
+				1160A5162819D272005DB1C3 /* Models */,
+				11B59CCA2819C70500E6D342 /* Services */,
+				11CEFAE42819C2E200E1FB27 /* Common */,
+				11CEFAE32819C2B500E1FB27 /* MovieList */,
 				11CEFAC72819ACC300E1FB27 /* Main.storyboard */,
 				11CEFACA2819ACC700E1FB27 /* Assets.xcassets */,
 				11CEFACC2819ACC700E1FB27 /* LaunchScreen.storyboard */,
 				11CEFACF2819ACC700E1FB27 /* Info.plist */,
+				11CEFAE12819BFDA00E1FB27 /* .swiftlint.yml */,
 			);
 			path = demoApp;
+			sourceTree = "<group>";
+		};
+		11CEFAE32819C2B500E1FB27 /* MovieList */ = {
+			isa = PBXGroup;
+			children = (
+				11CEFAC52819ACC300E1FB27 /* ViewController.swift */,
+			);
+			path = MovieList;
+			sourceTree = "<group>";
+		};
+		11CEFAE42819C2E200E1FB27 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				11CEFAC12819ACC300E1FB27 /* AppDelegate.swift */,
+				11CEFAC32819ACC300E1FB27 /* SceneDelegate.swift */,
+				11CEFAE52819C35500E1FB27 /* ConstructViewsProtocol.swift */,
+				11B59CCD2819C7A900E6D342 /* AppDelegate+Injection.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,12 +129,19 @@
 				11CEFABA2819ACC300E1FB27 /* Sources */,
 				11CEFABB2819ACC300E1FB27 /* Frameworks */,
 				11CEFABC2819ACC300E1FB27 /* Resources */,
+				11CEFADE2819BBF300E1FB27 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = demoApp;
+			packageProductDependencies = (
+				11CEFAD62819AEEC00E1FB27 /* SnapKit */,
+				11CEFAD92819B18600E1FB27 /* Resolver */,
+				1160A5122819D23A005DB1C3 /* Realm */,
+				1160A5142819D23A005DB1C3 /* RealmSwift */,
+			);
 			productName = demoApp;
 			productReference = 11CEFABE2819ACC300E1FB27 /* demoApp.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +170,12 @@
 				Base,
 			);
 			mainGroup = 11CEFAB52819ACC200E1FB27;
+			packageReferences = (
+				11CEFAD52819AEEC00E1FB27 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				11CEFAD82819B18600E1FB27 /* XCRemoteSwiftPackageReference "Resolver" */,
+				11CEFAE02819BDE800E1FB27 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				1160A5112819D23A005DB1C3 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 11CEFABF2819ACC300E1FB27 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,6 +190,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11CEFAE22819BFDA00E1FB27 /* .swiftlint.yml in Resources */,
 				11CEFACE2819ACC700E1FB27 /* LaunchScreen.storyboard in Resources */,
 				11CEFACB2819ACC700E1FB27 /* Assets.xcassets in Resources */,
 				11CEFAC92819ACC300E1FB27 /* Main.storyboard in Resources */,
@@ -133,13 +199,36 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		11CEFADE2819BBF300E1FB27 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		11CEFABA2819ACC300E1FB27 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11B59CCE2819C7A900E6D342 /* AppDelegate+Injection.swift in Sources */,
+				11CEFAE62819C35500E1FB27 /* ConstructViewsProtocol.swift in Sources */,
 				11CEFAC62819ACC300E1FB27 /* ViewController.swift in Sources */,
 				11CEFAC22819ACC300E1FB27 /* AppDelegate.swift in Sources */,
+				1160A5182819D27F005DB1C3 /* Movie.swift in Sources */,
 				11CEFAC42819ACC300E1FB27 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +447,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1160A5112819D23A005DB1C3 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		11CEFAD52819AEEC00E1FB27 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+		11CEFAD82819B18600E1FB27 /* XCRemoteSwiftPackageReference "Resolver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Resolver";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
+		11CEFAE02819BDE800E1FB27 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = revision;
+				revision = 3a4afce6239f1803cb06d15659c2ef956a7491a9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1160A5122819D23A005DB1C3 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1160A5112819D23A005DB1C3 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		1160A5142819D23A005DB1C3 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1160A5112819D23A005DB1C3 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		11CEFAD62819AEEC00E1FB27 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11CEFAD52819AEEC00E1FB27 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		11CEFAD92819B18600E1FB27 /* Resolver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11CEFAD82819B18600E1FB27 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = Resolver;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 11CEFAB62819ACC200E1FB27 /* Project object */;
 }
