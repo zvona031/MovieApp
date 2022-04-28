@@ -9,5 +9,9 @@ import Resolver
 
 extension Resolver: ResolverRegistering {
     public static func registerAllServices() {
+
+        register { _, args in
+            MovieListViewModel(withType: args())
+        }
     }
 }
