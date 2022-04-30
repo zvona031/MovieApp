@@ -15,7 +15,7 @@ enum TabBarItemType: CaseIterable {
     case favorite
     case search
 
-    var title: String {
+    var tabBarTitle: String {
         switch self {
         case .latest:
             return "Latest"
@@ -28,13 +28,25 @@ enum TabBarItemType: CaseIterable {
         }
     }
 
+    var tabBarImage: UIImage? {
+        switch self {
+        case .latest:
+            return UIImage(systemName: "timer")
+        case .popular:
+            return UIImage(systemName: "flame")
+        case .favorite:
+            return UIImage(systemName: "star")
+        case .search:
+            return UIImage(systemName: "magnifyingglass")
+        }
+    }
+
     var tabBarItem: UITabBarItem {
-        return UITabBarItem(title: title, image: UIImage.actions, tag: self.hashValue)
+        return UITabBarItem(title: tabBarTitle, image: tabBarImage, tag: self.hashValue)
     }
 }
 
 final class MovieListViewModel {
-
     let itemType: TabBarItemType
 
     init(withType itemType: TabBarItemType) {

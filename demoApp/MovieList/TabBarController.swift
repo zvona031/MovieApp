@@ -9,7 +9,6 @@ import UIKit
 import Resolver
 
 class TabBarController: UITabBarController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
@@ -20,7 +19,7 @@ class TabBarController: UITabBarController {
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         var controllers: [UIViewController] = []
         for itemType in TabBarItemType.allCases {
-            let controller = storyBoard.instantiateViewController(withIdentifier: "MovieListController") as! MovieListController
+            let controller: MovieListController = storyBoard.getController()
             controller.config(with: Resolver.resolve(args: itemType))
             controller.tabBarItem = itemType.tabBarItem
             controllers.append(controller)

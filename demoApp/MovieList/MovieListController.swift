@@ -14,7 +14,6 @@ class MovieListController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     func config(with viewModel: MovieListViewModel) {
