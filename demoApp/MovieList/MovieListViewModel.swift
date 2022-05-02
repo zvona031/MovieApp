@@ -9,6 +9,15 @@ import Foundation
 import Resolver
 import UIKit
 
+final class MovieListViewModel {
+    let itemType: TabBarItemType
+    @Injected private var moviesService: MoviesService
+
+    init(withType itemType: TabBarItemType) {
+        self.itemType = itemType
+    }
+}
+
 enum TabBarItemType: CaseIterable {
     case latest
     case popular
@@ -43,13 +52,5 @@ enum TabBarItemType: CaseIterable {
 
     var tabBarItem: UITabBarItem {
         return UITabBarItem(title: tabBarTitle, image: tabBarImage, tag: self.hashValue)
-    }
-}
-
-final class MovieListViewModel {
-    let itemType: TabBarItemType
-
-    init(withType itemType: TabBarItemType) {
-        self.itemType = itemType
     }
 }

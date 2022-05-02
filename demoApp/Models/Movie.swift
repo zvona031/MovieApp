@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class Movie: Object {
+class Movie: Object, Decodable {
     @Persisted var id: Int
     @Persisted var posterPath: String
     @Persisted var originalTitle: String
