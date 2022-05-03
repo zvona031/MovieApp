@@ -11,7 +11,8 @@ import UIKit
 
 final class MovieListViewModel {
     let itemType: TabBarItemType
-    @Injected private var moviesService: MoviesService
+    @Injected private var moviesService: MoviesRemoteRepository
+    var movies = MovieListResponse()
 
     init(withType itemType: TabBarItemType) {
         self.itemType = itemType

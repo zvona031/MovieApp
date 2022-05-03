@@ -13,4 +13,12 @@ struct MovieListResponse: Decodable, Equatable {
     }
 
     var movies: [Movie]
+
+    init() {
+        movies = []
+        for index in 0...5 {
+            let movie = Movie(with: index)
+            movies.append(movie)
+        }
+    }
 }

@@ -17,6 +17,9 @@ class MovieCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
 
+    final func config(with movie: Movie) {
+        heartButton.isSelected = movie.isFavorite
+    }
 
     @IBAction func hearButtonTapped(_ sender: Any) {
         heartButton.isSelected.toggle()

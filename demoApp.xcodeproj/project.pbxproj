@@ -12,8 +12,9 @@
 		11184395282040A100A4E722 /* ApiConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11184394282040A100A4E722 /* ApiConfigurable.swift */; };
 		11184398282041BD00A4E722 /* Encodable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11184397282041BD00A4E722 /* Encodable+Extensions.swift */; };
 		1118439B2820437500A4E722 /* MoviesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118439A2820437500A4E722 /* MoviesResponse.swift */; };
-		1118439D282048B900A4E722 /* MoviesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118439C282048B900A4E722 /* MoviesService.swift */; };
+		1118439D282048B900A4E722 /* MoviesRemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118439C282048B900A4E722 /* MoviesRemoteRepository.swift */; };
 		1118439F28204C5400A4E722 /* AuthRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118439E28204C5400A4E722 /* AuthRequestInterceptor.swift */; };
+		112141F428218FFC004BA4DE /* MoviesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112141F328218FFC004BA4DE /* MoviesService.swift */; };
 		1160A5132819D23A005DB1C3 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1160A5122819D23A005DB1C3 /* Realm */; };
 		1160A5152819D23A005DB1C3 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1160A5142819D23A005DB1C3 /* RealmSwift */; };
 		1160A5182819D27F005DB1C3 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1160A5172819D27F005DB1C3 /* Movie.swift */; };
@@ -40,8 +41,9 @@
 		11184394282040A100A4E722 /* ApiConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfigurable.swift; sourceTree = "<group>"; };
 		11184397282041BD00A4E722 /* Encodable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extensions.swift"; sourceTree = "<group>"; };
 		1118439A2820437500A4E722 /* MoviesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesResponse.swift; sourceTree = "<group>"; };
-		1118439C282048B900A4E722 /* MoviesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesService.swift; sourceTree = "<group>"; };
+		1118439C282048B900A4E722 /* MoviesRemoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRemoteRepository.swift; sourceTree = "<group>"; };
 		1118439E28204C5400A4E722 /* AuthRequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequestInterceptor.swift; sourceTree = "<group>"; };
+		112141F328218FFC004BA4DE /* MoviesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesService.swift; sourceTree = "<group>"; };
 		1160A5172819D27F005DB1C3 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		117C88A9281D62C9005784BE /* Storyboard+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Storyboard+Extensions.swift"; sourceTree = "<group>"; };
 		117C88AC281D7CDB005784BE /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -102,6 +104,14 @@
 			path = Responses;
 			sourceTree = "<group>";
 		};
+		112141F228218FD8004BA4DE /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				1118439C282048B900A4E722 /* MoviesRemoteRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		1160A5162819D272005DB1C3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,7 +144,7 @@
 		11B59CCA2819C70500E6D342 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				1118439C282048B900A4E722 /* MoviesService.swift */,
+				112141F328218FFC004BA4DE /* MoviesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -161,6 +171,7 @@
 				111843962820416F00A4E722 /* Utilities */,
 				1160A5162819D272005DB1C3 /* Models */,
 				11B59CCA2819C70500E6D342 /* Services */,
+				112141F228218FD8004BA4DE /* Repositories */,
 				11CEFAE42819C2E200E1FB27 /* Core */,
 				11CEFAE32819C2B500E1FB27 /* MovieList */,
 				11CEFACA2819ACC700E1FB27 /* Assets.xcassets */,
@@ -314,8 +325,9 @@
 				11184398282041BD00A4E722 /* Encodable+Extensions.swift in Sources */,
 				11C2522D281B0E080092119C /* MovieListController.swift in Sources */,
 				117C88B1281D80CF005784BE /* CollectionView+Extensions.swift in Sources */,
-				1118439D282048B900A4E722 /* MoviesService.swift in Sources */,
+				1118439D282048B900A4E722 /* MoviesRemoteRepository.swift in Sources */,
 				11CEFAC42819ACC300E1FB27 /* SceneDelegate.swift in Sources */,
+				112141F428218FFC004BA4DE /* MoviesService.swift in Sources */,
 				11184395282040A100A4E722 /* ApiConfigurable.swift in Sources */,
 				1118439028203FB600A4E722 /* NetworkClient.swift in Sources */,
 			);

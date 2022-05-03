@@ -13,12 +13,28 @@ class MovieListController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
 
+    enum Section {
+        case main
+    }
+
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Movie>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Movie>
+
     // MARK: - Properties
     private var viewModel: MovieListViewModel?
+    private lazy var dataSource: DataSource = {
+        let dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie -> MovieCollectionViewCell? in
+            let cell: MovieCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+            cell.config(with: movie)
+            return cell
+            })
+        return dataSource
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewSetup()
+        applySnapshot()
     }
 
     func config(with viewModel: MovieListViewModel) {
@@ -26,27 +42,23 @@ class MovieListController: UIViewController {
         self.title = viewModel.itemType.tabBarTitle
     }
 
-    func collectionViewSetup() {
+    private func collectionViewSetup() {
         collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.registerNib(MovieCollectionViewCell.self)
+    }
+
+    func applySnapshot(animatingDifferences: Bool = true) {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel?.movies.movies ?? [])
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 }
 
 // MARK: - UICollectionView
-extension MovieListController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: MovieCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-        return cell
-    }
-
+extension MovieListController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.size.width / 2
-        print(width)
         let height = width * 1.5
         return CGSize(width: width, height: height)
     }

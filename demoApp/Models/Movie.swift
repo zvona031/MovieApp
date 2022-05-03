@@ -7,11 +7,24 @@
 
 import RealmSwift
 
-class Movie: Object, Decodable {
-    @Persisted var id: Int
-    @Persisted var posterPath: String
-    @Persisted var originalTitle: String
-    @Persisted var voteAverage: Double
-    @Persisted var overview: String
-    @Persisted var isFavorite: Bool
+struct Movie: Codable, Hashable {
+    let id: Int
+    let posterPath: String
+    let originalTitle: String
+    let voteAverage: Double
+    let overview: String
+    let isFavorite: Bool
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    init(with id: Int) {
+        self.id = id
+        self.posterPath = ""
+        self.originalTitle = ""
+        self.voteAverage = 0.0
+        self.overview = ""
+        self.isFavorite = id % 2 == 0
+    }
 }
