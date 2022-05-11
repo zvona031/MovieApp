@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Resolver
+import Combine
 
 class MovieListController: UIViewController {
     // MARK: - IBOutlets
@@ -21,6 +22,7 @@ class MovieListController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Movie>
 
     // MARK: - Properties
+    private var subscriptions = Set<AnyCancellable>()
     private var viewModel: MovieListViewModel?
     private lazy var dataSource: DataSource = {
         let dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie -> MovieCollectionViewCell? in
@@ -34,7 +36,9 @@ class MovieListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewSetup()
-        applySnapshot()
+        dataBinding()
+        getMovies()
+
     }
 
     func config(with viewModel: MovieListViewModel) {
@@ -47,11 +51,21 @@ class MovieListController: UIViewController {
         collectionView.registerNib(MovieCollectionViewCell.self)
     }
 
-    func applySnapshot(animatingDifferences: Bool = true) {
+    func dataBinding() {
+        viewModel?.$movies.sink { movies in
+            self.applySnapshot(with: movies)
+        }.store(in: &subscriptions)
+    }
+
+    func getMovies() {
+        viewModel?.getMovies()
+    }
+
+    func applySnapshot(with movies: [Movie]) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(viewModel?.movies.movies ?? [])
-        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+        snapshot.appendItems(movies)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 

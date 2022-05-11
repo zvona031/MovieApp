@@ -18,7 +18,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }
 
     final func config(with movie: Movie) {
-        heartButton.isSelected = movie.isFavorite
+//        heartButton.isSelected = movie.isFavorite
     }
 
     @IBAction func hearButtonTapped(_ sender: Any) {

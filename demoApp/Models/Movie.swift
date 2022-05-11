@@ -8,23 +8,21 @@
 import RealmSwift
 
 struct Movie: Codable, Hashable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case posterPath = "poster_path"
+        case originalTitle = "original_title"
+        case voteAverage = "vote_average"
+        case overview
+    }
+
     let id: Int
     let posterPath: String
     let originalTitle: String
     let voteAverage: Double
     let overview: String
-    let isFavorite: Bool
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-    }
-
-    init(with id: Int) {
-        self.id = id
-        self.posterPath = ""
-        self.originalTitle = ""
-        self.voteAverage = 0.0
-        self.overview = ""
-        self.isFavorite = id % 2 == 0
     }
 }

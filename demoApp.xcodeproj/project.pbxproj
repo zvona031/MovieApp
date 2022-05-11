@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1109D9A0282C40C10050B161 /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109D99F282C40C10050B161 /* TabBarItemType.swift */; };
 		1118439028203FB600A4E722 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118438F28203FB600A4E722 /* NetworkClient.swift */; };
 		111843932820404300A4E722 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 111843922820404300A4E722 /* Alamofire */; };
 		11184395282040A100A4E722 /* ApiConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11184394282040A100A4E722 /* ApiConfigurable.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1109D99F282C40C10050B161 /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
 		1118438F28203FB600A4E722 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		11184394282040A100A4E722 /* ApiConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfigurable.swift; sourceTree = "<group>"; };
 		11184397282041BD00A4E722 /* Encodable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extensions.swift"; sourceTree = "<group>"; };
@@ -79,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1109D99E282C40AE0050B161 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				11CEFAC52819ACC300E1FB27 /* TabBarController.swift */,
+				1109D99F282C40C10050B161 /* TabBarItemType.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		1118438C2820338C00A4E722 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +179,7 @@
 		11CEFAC02819ACC300E1FB27 /* demoApp */ = {
 			isa = PBXGroup;
 			children = (
+				1109D99E282C40AE0050B161 /* Main */,
 				111843962820416F00A4E722 /* Utilities */,
 				1160A5162819D272005DB1C3 /* Models */,
 				11B59CCA2819C70500E6D342 /* Services */,
@@ -187,7 +199,6 @@
 			children = (
 				117C88AB281D7CCB005784BE /* Cells */,
 				11CEFAC72819ACC300E1FB27 /* Main.storyboard */,
-				11CEFAC52819ACC300E1FB27 /* TabBarController.swift */,
 				11C2522C281B0E080092119C /* MovieListController.swift */,
 				11C2522E281B10680092119C /* MovieListViewModel.swift */,
 			);
@@ -325,6 +336,7 @@
 				11184398282041BD00A4E722 /* Encodable+Extensions.swift in Sources */,
 				11C2522D281B0E080092119C /* MovieListController.swift in Sources */,
 				117C88B1281D80CF005784BE /* CollectionView+Extensions.swift in Sources */,
+				1109D9A0282C40C10050B161 /* TabBarItemType.swift in Sources */,
 				1118439D282048B900A4E722 /* MoviesRemoteRepository.swift in Sources */,
 				11CEFAC42819ACC300E1FB27 /* SceneDelegate.swift in Sources */,
 				112141F428218FFC004BA4DE /* MoviesService.swift in Sources */,
