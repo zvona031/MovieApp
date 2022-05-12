@@ -23,7 +23,8 @@ class NetworkClient: Networking {
     }
 
     func request<Value>(endpoint: URLRequestConvertible) -> AnyPublisher<Value, Error> where Value: Decodable {
-        session.request(endpoint, interceptor: interceptor)
+        session
+            .request(endpoint, interceptor: interceptor)
             .cURLDescription(calling: { curl in
                 print(curl)
             })

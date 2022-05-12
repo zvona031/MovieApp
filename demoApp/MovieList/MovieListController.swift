@@ -38,7 +38,6 @@ class MovieListController: UIViewController {
         collectionViewSetup()
         dataBinding()
         getMovies()
-
     }
 
     func config(with viewModel: MovieListViewModel) {
@@ -54,7 +53,8 @@ class MovieListController: UIViewController {
     func dataBinding() {
         viewModel?.$movies.sink { movies in
             self.applySnapshot(with: movies)
-        }.store(in: &subscriptions)
+        }
+        .store(in: &subscriptions)
     }
 
     func getMovies() {

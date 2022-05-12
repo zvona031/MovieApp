@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="232" height="255"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIq-kw-8PN">
-                        <rect key="frame" x="178" y="10" width="44" height="44"/>
+                        <rect key="frame" x="188" y="0.0" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="VtO-I3-elG"/>
                             <constraint firstAttribute="height" constant="44" id="yyl-kX-Wt5"/>
@@ -37,10 +37,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="hOA-yr-D7C" secondAttribute="trailing" id="5sf-2n-fSo"/>
-                    <constraint firstItem="ZIq-kw-8PN" firstAttribute="top" secondItem="VsM-aV-gqO" secondAttribute="top" constant="10" id="KxM-gb-HWc"/>
+                    <constraint firstItem="ZIq-kw-8PN" firstAttribute="top" secondItem="VsM-aV-gqO" secondAttribute="top" id="KxM-gb-HWc"/>
                     <constraint firstItem="hOA-yr-D7C" firstAttribute="top" secondItem="VsM-aV-gqO" secondAttribute="top" id="Qzv-Ba-79E"/>
                     <constraint firstItem="hOA-yr-D7C" firstAttribute="leading" secondItem="VsM-aV-gqO" secondAttribute="leading" id="UbF-87-hq8"/>
-                    <constraint firstAttribute="trailing" secondItem="ZIq-kw-8PN" secondAttribute="trailing" constant="10" id="YWC-9g-eLB"/>
+                    <constraint firstAttribute="trailing" secondItem="ZIq-kw-8PN" secondAttribute="trailing" id="YWC-9g-eLB"/>
                     <constraint firstAttribute="bottom" secondItem="hOA-yr-D7C" secondAttribute="bottom" id="ohX-oI-n20"/>
                 </constraints>
             </collectionViewCellContentView>

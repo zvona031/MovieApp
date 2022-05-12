@@ -13,5 +13,4 @@ protocol MoviesService {}
 
 final class MoviesServiceImpl: MoviesService {
     @Injected private var remoteRepository: MoviesRemoteRepositoryImpl
-
 }

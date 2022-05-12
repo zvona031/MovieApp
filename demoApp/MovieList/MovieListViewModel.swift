@@ -20,14 +20,14 @@ final class MovieListViewModel {
     func getMovies() {
         Just<Void>(())
             .flatMap { [unowned self] in
-                moviesService.getPopularMovies().map { movieListResponse in
-                    movieListResponse.movies
-                }.catch { error in
-                    Just<[Movie]>([])
-                }
+                moviesService.getPopularMovies()
+                    .map { movieListResponse in
+                        movieListResponse.movies
+                    }
+                    .catch { _ in
+                        Just<[Movie]>([])
+                    }
             }
             .assign(to: &$movies)
-        // sta sad s ovim koju kitu
     }
 }
-
