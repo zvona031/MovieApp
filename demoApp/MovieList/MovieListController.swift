@@ -23,7 +23,7 @@ class MovieListController: UIViewController {
 
     // MARK: - Properties
     private var subscriptions = Set<AnyCancellable>()
-    private var viewModel: MovieListViewModel?
+    private var viewModel: MovieListViewModel!
     private lazy var dataSource: DataSource = {
         let dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie -> MovieCollectionViewCell? in
             let cell: MovieCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
@@ -43,6 +43,7 @@ class MovieListController: UIViewController {
     func config(with viewModel: MovieListViewModel) {
         self.viewModel = viewModel
         self.title = viewModel.itemType.tabBarTitle
+        self.tabBarItem = viewModel.itemType.tabBarItem
     }
 
     private func collectionViewSetup() {
@@ -51,14 +52,14 @@ class MovieListController: UIViewController {
     }
 
     func dataBinding() {
-        viewModel?.$movies.sink { movies in
+        viewModel.$movies.sink { movies in
             self.applySnapshot(with: movies)
         }
         .store(in: &subscriptions)
     }
 
     func getMovies() {
-        viewModel?.getMovies()
+        viewModel.getMovies()
     }
 
     func applySnapshot(with movies: [Movie]) {
@@ -79,5 +80,19 @@ extension MovieListController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let movie = viewModel.movies.self[safe: indexPath.row] else {return}
+        showMovieDetails(for: movie)
+    }
+}
+
+extension MovieListController {
+    func showMovieDetails(for movie: Movie) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let controller: MovieDetailsController = storyBoard.getController()
+        controller.config(with: Resolver.resolve(args: movie))
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }

@@ -21,8 +21,8 @@ class TabBarController: UITabBarController {
         for itemType in TabBarItemType.allCases {
             let controller: MovieListController = storyBoard.getController()
             controller.config(with: Resolver.resolve(args: itemType))
-            controller.tabBarItem = itemType.tabBarItem
-            controllers.append(controller)
+            let navigationController = UINavigationController(rootViewController: controller)
+            controllers.append(navigationController)
         }
         self.setViewControllers(controllers, animated: true)
     }

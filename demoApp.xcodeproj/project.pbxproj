@@ -36,6 +36,9 @@
 		11CEFADA2819B18600E1FB27 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 11CEFAD92819B18600E1FB27 /* Resolver */; };
 		11CEFAE22819BFDA00E1FB27 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 11CEFAE12819BFDA00E1FB27 /* .swiftlint.yml */; };
 		11E4CB76282D8B550003D472 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 11E4CB75282D8B550003D472 /* Kingfisher */; };
+		11EAE3582833EC5800ABFC4D /* MovieDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAE3572833EC5800ABFC4D /* MovieDetailsController.swift */; };
+		11EAE35A2833EC6400ABFC4D /* MovieDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAE3592833EC6400ABFC4D /* MovieDetailsViewModel.swift */; };
+		11EAE35C2833F53500ABFC4D /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAE35B2833F53500ABFC4D /* Collection+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +67,9 @@
 		11CEFACD2819ACC700E1FB27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11CEFACF2819ACC700E1FB27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11CEFAE12819BFDA00E1FB27 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		11EAE3572833EC5800ABFC4D /* MovieDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsController.swift; sourceTree = "<group>"; };
+		11EAE3592833EC6400ABFC4D /* MovieDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModel.swift; sourceTree = "<group>"; };
+		11EAE35B2833F53500ABFC4D /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,7 @@
 				117C88A9281D62C9005784BE /* Storyboard+Extensions.swift */,
 				117C88B0281D80CF005784BE /* CollectionView+Extensions.swift */,
 				11184397282041BD00A4E722 /* Encodable+Extensions.swift */,
+				11EAE35B2833F53500ABFC4D /* Collection+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -181,14 +188,16 @@
 		11CEFAC02819ACC300E1FB27 /* demoApp */ = {
 			isa = PBXGroup;
 			children = (
-				1109D99E282C40AE0050B161 /* Main */,
 				111843962820416F00A4E722 /* Utilities */,
 				1160A5162819D272005DB1C3 /* Models */,
 				11B59CCA2819C70500E6D342 /* Services */,
 				112141F228218FD8004BA4DE /* Repositories */,
 				11CEFAE42819C2E200E1FB27 /* Core */,
+				1109D99E282C40AE0050B161 /* Main */,
 				11CEFAE32819C2B500E1FB27 /* MovieList */,
+				11EAE3562833EC2D00ABFC4D /* MovieDetails */,
 				11CEFACA2819ACC700E1FB27 /* Assets.xcassets */,
+				11CEFAC72819ACC300E1FB27 /* Main.storyboard */,
 				11CEFACC2819ACC700E1FB27 /* LaunchScreen.storyboard */,
 				11CEFACF2819ACC700E1FB27 /* Info.plist */,
 				11CEFAE12819BFDA00E1FB27 /* .swiftlint.yml */,
@@ -200,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				117C88AB281D7CCB005784BE /* Cells */,
-				11CEFAC72819ACC300E1FB27 /* Main.storyboard */,
 				11C2522C281B0E080092119C /* MovieListController.swift */,
 				11C2522E281B10680092119C /* MovieListViewModel.swift */,
 			);
@@ -216,6 +224,15 @@
 				11CEFAC32819ACC300E1FB27 /* SceneDelegate.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		11EAE3562833EC2D00ABFC4D /* MovieDetails */ = {
+			isa = PBXGroup;
+			children = (
+				11EAE3572833EC5800ABFC4D /* MovieDetailsController.swift */,
+				11EAE3592833EC6400ABFC4D /* MovieDetailsViewModel.swift */,
+			);
+			path = MovieDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +345,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11EAE35A2833EC6400ABFC4D /* MovieDetailsViewModel.swift in Sources */,
+				11EAE35C2833F53500ABFC4D /* Collection+Extensions.swift in Sources */,
+				11EAE3582833EC5800ABFC4D /* MovieDetailsController.swift in Sources */,
 				11B59CCE2819C7A900E6D342 /* AppDelegate+Injection.swift in Sources */,
 				1118439F28204C5400A4E722 /* AuthRequestInterceptor.swift in Sources */,
 				11CEFAC62819ACC300E1FB27 /* TabBarController.swift in Sources */,

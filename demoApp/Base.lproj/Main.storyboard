@@ -61,6 +61,47 @@
             </objects>
             <point key="canvasLocation" x="1513.0434782608697" y="37.5"/>
         </scene>
+        <!--Movie Details Controller-->
+        <scene sceneID="R4Y-2t-pOf">
+            <objects>
+                <viewController storyboardIdentifier="MovieDetailsController" id="rIL-w3-4cr" customClass="MovieDetailsController" customModule="demoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bEb-j7-C98">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HRa-3V-cVi">
+                                <rect key="frame" x="0.0" y="44" width="414" height="497"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="HRa-3V-cVi" secondAttribute="height" multiplier="1:1.2" id="PRJ-Be-rHO"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTD-Xf-4ZW">
+                                <rect key="frame" x="20" y="551" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hLO-7N-jo3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hLO-7N-jo3" firstAttribute="trailing" secondItem="HRa-3V-cVi" secondAttribute="trailing" id="1T8-Ku-oam"/>
+                            <constraint firstItem="HRa-3V-cVi" firstAttribute="leading" secondItem="hLO-7N-jo3" secondAttribute="leading" id="DRi-gL-zCy"/>
+                            <constraint firstItem="HRa-3V-cVi" firstAttribute="top" secondItem="hLO-7N-jo3" secondAttribute="top" id="NK6-Hc-1cd"/>
+                            <constraint firstItem="MTD-Xf-4ZW" firstAttribute="top" secondItem="HRa-3V-cVi" secondAttribute="bottom" constant="10" id="fq1-4F-pGx"/>
+                            <constraint firstItem="MTD-Xf-4ZW" firstAttribute="leading" secondItem="hLO-7N-jo3" secondAttribute="leading" constant="20" id="r2o-jc-LAF"/>
+                            <constraint firstItem="hLO-7N-jo3" firstAttribute="trailing" secondItem="MTD-Xf-4ZW" secondAttribute="trailing" constant="20" id="ur8-mt-6fe"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="coverImageView" destination="HRa-3V-cVi" id="VSB-yR-T2j"/>
+                        <outlet property="movieTitleLabel" destination="MTD-Xf-4ZW" id="iNy-Hf-20V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SM3-J2-PLw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2358" y="38"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="MHZ-jK-v80">
             <objects>

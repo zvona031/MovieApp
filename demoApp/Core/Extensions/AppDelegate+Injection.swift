@@ -19,5 +19,7 @@ extension Resolver: ResolverRegistering {
         register { MoviesRemoteRepositoryImpl() as MoviesRemoteRepository }
 
         register { _, args in MovieListViewModel(withType: args()) }
+
+        register { _, args in MovieDetailsViewModel(for: args()) }
     }
 }
