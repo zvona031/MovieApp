@@ -7,10 +7,12 @@
 
 import Combine
 import Resolver
+import RealmSwift
 
 protocol MoviesRepository {
     func getLatestMovies(with queryRequest: QueryRequestable) -> AnyPublisher<MovieListResponse, Error>
     func getPopularMovies() -> AnyPublisher<MovieListResponse, Error>
+    func getFavoriteMovies() -> Results<MovieLocal>
     func saveFavoriteMovie(movie: MovieLocal)
     func removeFavoriteMovie(movie: MovieLocal)
     
@@ -26,6 +28,10 @@ final class MoviesRepositoryImpl: MoviesRepository {
 
     func getPopularMovies() -> AnyPublisher<MovieListResponse, Error> {
         networkService.request(endpoint: Endpoint.getPopularMovies)
+    }
+
+    func getFavoriteMovies() -> Results<MovieLocal> {
+        databaseService.getFavoriteMovies()
     }
 
     func saveFavoriteMovie(movie: MovieLocal) {

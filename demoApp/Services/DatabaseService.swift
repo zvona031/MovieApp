@@ -24,8 +24,7 @@ final class DatabaseServiceImpl: DatabaseService {
         } catch {}
     }
 
-    func getFavoriteMovies() -> Results<MovieLocal> {
-        realm.objects(MovieLocal.self)
+    func getFavoriteMovies() -> Results<MovieLocal> {  realm.objects(MovieLocal.self)
     }
 
     func saveFavoriteMovie(with movie: MovieLocal) {
@@ -41,7 +40,7 @@ final class DatabaseServiceImpl: DatabaseService {
     func removeFavoriteMovie(with movie: MovieLocal) {
         do {
             try realm.write({
-                realm.delete(movie)
+                realm.delete(realm.objects(MovieLocal.self).filter("id=%@",movie.id))
             })
         } catch {
 

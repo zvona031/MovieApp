@@ -18,6 +18,55 @@ final class MovieListViewModel {
     }
 
     func getMovies() {
+        switch (itemType) {
+        case .latest:
+            getPopularMovies()
+        case .popular:
+            getPopularMovies()
+        case .favorite:
+            getFavoriteMovies()
+        case .search:
+            break
+        }
+//        Just<Void>(())
+//            .flatMap { [unowned self] in
+//                moviesService.getPopularMovies()
+//                    .map { movieListResponse in
+//                        movieListResponse.movies.map { movieRemote in
+//                            movieRemote.mapToMoviePresent()
+//                        }
+//                    }
+//                    .catch { _ in
+//                        Just<[MoviePresent]>([])
+//                    }
+//            }
+//            .assign(to: &$movies)
+    }
+
+    private func getPopularMovies() {
+        Just<Void>(())
+            .flatMap { [unowned self] in
+                moviesService.getPopularMovies()
+                    .map { movieListResponse in
+                        movieListResponse.movies.map { movieRemote in
+                            movieRemote.mapToMoviePresent()
+                        }
+                    }
+                    .catch { _ in
+                        Just<[MoviePresent]>([])
+                    }
+            }
+            .assign(to: &$movies)
+    }
+
+    private func getFavoriteMovies() {
+        movies = moviesService.getFavoriteMovies().map({ movieLocal in
+            movieLocal.mapToMoviePresent()
+        })
+
+    }
+
+    private func getLatestMovies() {
         Just<Void>(())
             .flatMap { [unowned self] in
                 moviesService.getPopularMovies()
@@ -34,6 +83,11 @@ final class MovieListViewModel {
     }
 
     func favoriteClicked(with movie: MoviePresent) {
-        moviesService.saveFavoriteMovie(movie: movie.mapToLocal())
+        if movie.isFavorite {
+            moviesService.removeFavoriteMovie(movie: movie.mapToLocal())
+        } else {
+            moviesService.saveFavoriteMovie(movie: movie.mapToLocal())
+        }
+
     }
 }
