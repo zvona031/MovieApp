@@ -11,7 +11,7 @@ struct MovieListResponse: Decodable, Equatable {
         case page
         case totalPages = "total_pages"
     }
-    var movies: [Movie]
+    var movies: [MovieRemote]
     var page: Int
     var totalPages: Int
 }

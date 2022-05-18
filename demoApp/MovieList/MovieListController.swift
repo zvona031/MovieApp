@@ -18,8 +18,8 @@ class MovieListController: UIViewController {
         case main
     }
 
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Movie>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Movie>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, MoviePresent>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MoviePresent>
 
     // MARK: - Properties
     private var subscriptions = Set<AnyCancellable>()
@@ -27,7 +27,7 @@ class MovieListController: UIViewController {
     private lazy var dataSource: DataSource = {
         let dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie -> MovieCollectionViewCell? in
             let cell: MovieCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-            cell.config(with: movie)
+            cell.config(with: movie, delegate: self)
             return cell
             })
         return dataSource
@@ -62,7 +62,7 @@ class MovieListController: UIViewController {
         viewModel.getMovies()
     }
 
-    func applySnapshot(with movies: [Movie]) {
+    func applySnapshot(with movies: [MoviePresent]) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(movies)
@@ -89,10 +89,16 @@ extension MovieListController: UICollectionViewDelegateFlowLayout {
 }
 
 extension MovieListController {
-    func showMovieDetails(for movie: Movie) {
+    func showMovieDetails(for movie: MoviePresent) {
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let controller: MovieDetailsController = storyBoard.getController()
         controller.config(with: Resolver.resolve(args: movie))
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension MovieListController: MovieCellDelegate {
+    func favoriteClicked(with movie: MoviePresent) {
+        viewModel.favoriteClicked(with: movie)
     }
 }

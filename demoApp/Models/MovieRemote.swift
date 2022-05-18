@@ -5,9 +5,7 @@
 //  Created by Zvonimir Pavlović on 27.04.2022..
 //
 
-import RealmSwift
-
-struct Movie: Codable, Hashable {
+struct MovieRemote: Codable, Hashable {
     enum CodingKeys: String, CodingKey {
         case id
         case posterPath = "poster_path"
@@ -24,5 +22,11 @@ struct Movie: Codable, Hashable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+}
+
+extension MovieRemote {
+    func mapToMoviePresent() -> MoviePresent {
+        return MoviePresent(id: id, posterPath: posterPath, originalTitle: originalTitle, voteAverage: voteAverage, overview: overview, isFavorite: false)
     }
 }

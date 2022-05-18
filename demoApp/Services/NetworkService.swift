@@ -13,7 +13,7 @@ protocol Networking {
     func request<Value>(endpoint: URLRequestConvertible) -> AnyPublisher<Value, Error> where Value: Decodable
 }
 
-class NetworkClient: Networking {
+class NetworkService: Networking {
     private let session: Session
     private let interceptor: RequestInterceptor
 

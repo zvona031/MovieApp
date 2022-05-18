@@ -8,9 +8,9 @@
 import Resolver
 
 class MovieDetailsViewModel {
-    var movie: Movie
+    var movie: MoviePresent
 
-    init(for movie: Movie) {
+    init(for movie: MoviePresent) {
         self.movie = movie
     }
 }

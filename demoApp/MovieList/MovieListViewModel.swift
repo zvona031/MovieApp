@@ -9,9 +9,9 @@ import Resolver
 import Combine
 
 final class MovieListViewModel {
+    @Injected private var moviesService: MoviesRepository
     let itemType: TabBarItemType
-    @Injected private var moviesService: MoviesRemoteRepository
-    @Published private(set) var movies: [Movie] = []
+    @Published private(set) var movies: [MoviePresent] = []
 
     init(withType itemType: TabBarItemType) {
         self.itemType = itemType
@@ -22,12 +22,18 @@ final class MovieListViewModel {
             .flatMap { [unowned self] in
                 moviesService.getPopularMovies()
                     .map { movieListResponse in
-                        movieListResponse.movies
+                        movieListResponse.movies.map { movieRemote in
+                            movieRemote.mapToMoviePresent()
+                        }
                     }
                     .catch { _ in
-                        Just<[Movie]>([])
+                        Just<[MoviePresent]>([])
                     }
             }
             .assign(to: &$movies)
+    }
+
+    func favoriteClicked(with movie: MoviePresent) {
+        moviesService.saveFavoriteMovie(movie: movie.mapToLocal())
     }
 }

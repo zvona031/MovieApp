@@ -5,37 +5,47 @@
 //  Created by Zvonimir Pavlović on 02.05.2022..
 //
 
-import Foundation
 import Combine
 import Resolver
 
-protocol MoviesRemoteRepository {
+protocol MoviesRepository {
     func getLatestMovies(with queryRequest: QueryRequestable) -> AnyPublisher<MovieListResponse, Error>
     func getPopularMovies() -> AnyPublisher<MovieListResponse, Error>
+    func saveFavoriteMovie(movie: MovieLocal)
+    func removeFavoriteMovie(movie: MovieLocal)
+    
 }
 
-final class MoviesRemoteRepositoryImpl: MoviesRemoteRepository {
-    @Injected private var networkClient: Networking
+final class MoviesRepositoryImpl: MoviesRepository {
+    @Injected private var networkService: Networking
+    @Injected private var databaseService: DatabaseService
 
     func getLatestMovies(with queryRequest: QueryRequestable) -> AnyPublisher<MovieListResponse, Error> {
-        networkClient.request(endpoint: Endpoint.getLatestMovies(queryRequest))
+        networkService.request(endpoint: Endpoint.getLatestMovies(queryRequest))
     }
 
     func getPopularMovies() -> AnyPublisher<MovieListResponse, Error> {
-        networkClient.request(endpoint: Endpoint.getPopularMovies)
+        networkService.request(endpoint: Endpoint.getPopularMovies)
+    }
+
+    func saveFavoriteMovie(movie: MovieLocal) {
+        databaseService.saveFavoriteMovie(with: movie)
+    }
+
+    func removeFavoriteMovie(movie: MovieLocal) {
+        databaseService.removeFavoriteMovie(with: movie)
     }
 }
 
 // MARK: - Endpoints
-
-extension MoviesRemoteRepositoryImpl {
+extension MoviesRepositoryImpl {
     enum Endpoint {
         case getLatestMovies(QueryRequestable)
         case getPopularMovies
     }
 }
 
-extension MoviesRemoteRepositoryImpl.Endpoint: APIConfigurable {
+extension MoviesRepositoryImpl.Endpoint: APIConfigurable {
     var path: String {
         switch self {
         case .getLatestMovies: return "/movie/latest"

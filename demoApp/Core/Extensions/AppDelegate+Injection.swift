@@ -12,11 +12,11 @@ extension Resolver: ResolverRegistering {
     public static func registerAllServices() {
         register { AuthRequestInterceptor() as RequestInterceptor }
 
-        register { NetworkClient(session: AF, interceptor: resolve()) as Networking }
+        register { NetworkService(session: AF, interceptor: resolve()) as Networking }
 
-        register { MoviesServiceImpl() as MoviesService }
+        register { DatabaseServiceImpl() as DatabaseService }
 
-        register { MoviesRemoteRepositoryImpl() as MoviesRemoteRepository }
+        register { MoviesRepositoryImpl() as MoviesRepository }
 
         register { _, args in MovieListViewModel(withType: args()) }
 
