@@ -26,7 +26,7 @@ struct MovieRemote: Codable, Hashable {
 }
 
 extension MovieRemote {
-    func mapToMoviePresent() -> MoviePresent {
-        return MoviePresent(id: id, posterPath: posterPath, originalTitle: originalTitle, voteAverage: voteAverage, overview: overview, isFavorite: false)
+    func mapToMoviePresent(with isFavorite: Bool) -> MoviePresent {
+        return MoviePresent(id: id, posterPath: posterPath, originalTitle: originalTitle, voteAverage: voteAverage, overview: overview, isFavorite: isFavorite)
     }
 }

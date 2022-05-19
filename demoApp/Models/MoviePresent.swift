@@ -14,7 +14,7 @@ struct MoviePresent: Hashable {
     let originalTitle: String
     let voteAverage: Double
     let overview: String
-    let isFavorite: Bool
+    var isFavorite: Bool
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -25,5 +25,9 @@ extension MoviePresent {
 
     func mapToLocal() -> MovieLocal {
         return MovieLocal(with: self)
+    }
+
+    mutating func setIsFavorite(with isFavorite: Bool) {
+        self.isFavorite = isFavorite
     }
 }

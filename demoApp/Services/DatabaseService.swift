@@ -13,6 +13,7 @@ protocol DatabaseService {
     func getFavoriteMovies() -> Results<MovieLocal>
     func saveFavoriteMovie(with movie: MovieLocal)
     func removeFavoriteMovie(with movie: MovieLocal)
+    func isMovieFavorite(with id: Int) -> Bool
 }
 
 final class DatabaseServiceImpl: DatabaseService {
@@ -24,12 +25,19 @@ final class DatabaseServiceImpl: DatabaseService {
         } catch {}
     }
 
-    func getFavoriteMovies() -> Results<MovieLocal> {  realm.objects(MovieLocal.self)
+    func getFavoriteMovies() -> Results<MovieLocal> {
+        realm.objects(MovieLocal.self)
+    }
+
+    func isMovieFavorite(with id: Int) -> Bool {
+        realm.objects(MovieLocal.self).first { movie in
+            movie.id == id
+        } != nil
     }
 
     func saveFavoriteMovie(with movie: MovieLocal) {
         do {
-            try realm.write({
+            try realm.write( {
                 realm.add(movie)
             })
         } catch {
@@ -39,7 +47,7 @@ final class DatabaseServiceImpl: DatabaseService {
 
     func removeFavoriteMovie(with movie: MovieLocal) {
         do {
-            try realm.write({
+            try realm.write( {
                 realm.delete(realm.objects(MovieLocal.self).filter("id=%@",movie.id))
             })
         } catch {

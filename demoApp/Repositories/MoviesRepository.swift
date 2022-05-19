@@ -13,9 +13,9 @@ protocol MoviesRepository {
     func getLatestMovies(with queryRequest: QueryRequestable) -> AnyPublisher<MovieListResponse, Error>
     func getPopularMovies() -> AnyPublisher<MovieListResponse, Error>
     func getFavoriteMovies() -> Results<MovieLocal>
+    func isMovieFavorite(with id: Int) -> Bool
     func saveFavoriteMovie(movie: MovieLocal)
     func removeFavoriteMovie(movie: MovieLocal)
-    
 }
 
 final class MoviesRepositoryImpl: MoviesRepository {
@@ -40,6 +40,10 @@ final class MoviesRepositoryImpl: MoviesRepository {
 
     func removeFavoriteMovie(movie: MovieLocal) {
         databaseService.removeFavoriteMovie(with: movie)
+    }
+
+    func isMovieFavorite(with id: Int) -> Bool {
+        databaseService.isMovieFavorite(with: id)
     }
 }
 

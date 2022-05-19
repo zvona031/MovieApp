@@ -32,6 +32,7 @@ class MovieListController: UIViewController {
             })
         return dataSource
     }()
+    private let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +50,18 @@ class MovieListController: UIViewController {
     private func collectionViewSetup() {
         collectionView.delegate = self
         collectionView.registerNib(MovieCollectionViewCell.self)
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+    }
+
+    @objc private func refreshData() {
+        getMovies()
     }
 
     func dataBinding() {
         viewModel.$movies.sink { movies in
             self.applySnapshot(with: movies)
+            self.refreshControl.endRefreshing()
         }
         .store(in: &subscriptions)
     }
@@ -99,6 +107,11 @@ extension MovieListController {
 
 extension MovieListController: MovieCellDelegate {
     func favoriteClicked(with movie: MoviePresent) {
+        if viewModel.itemType == .favorite {
+                var currentSnapshot = dataSource.snapshot()
+                currentSnapshot.deleteItems([movie])
+                dataSource.apply(currentSnapshot)
+        }
         viewModel.favoriteClicked(with: movie)
     }
 }

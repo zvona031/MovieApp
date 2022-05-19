@@ -18,7 +18,7 @@ final class MovieListViewModel {
     }
 
     func getMovies() {
-        switch (itemType) {
+        switch itemType {
         case .latest:
             getPopularMovies()
         case .popular:
@@ -28,19 +28,6 @@ final class MovieListViewModel {
         case .search:
             break
         }
-//        Just<Void>(())
-//            .flatMap { [unowned self] in
-//                moviesService.getPopularMovies()
-//                    .map { movieListResponse in
-//                        movieListResponse.movies.map { movieRemote in
-//                            movieRemote.mapToMoviePresent()
-//                        }
-//                    }
-//                    .catch { _ in
-//                        Just<[MoviePresent]>([])
-//                    }
-//            }
-//            .assign(to: &$movies)
     }
 
     private func getPopularMovies() {
@@ -49,7 +36,7 @@ final class MovieListViewModel {
                 moviesService.getPopularMovies()
                     .map { movieListResponse in
                         movieListResponse.movies.map { movieRemote in
-                            movieRemote.mapToMoviePresent()
+                            movieRemote.mapToMoviePresent(with: self.moviesService.isMovieFavorite(with: movieRemote.id))
                         }
                     }
                     .catch { _ in
@@ -63,7 +50,6 @@ final class MovieListViewModel {
         movies = moviesService.getFavoriteMovies().map({ movieLocal in
             movieLocal.mapToMoviePresent()
         })
-
     }
 
     private func getLatestMovies() {
@@ -72,7 +58,7 @@ final class MovieListViewModel {
                 moviesService.getPopularMovies()
                     .map { movieListResponse in
                         movieListResponse.movies.map { movieRemote in
-                            movieRemote.mapToMoviePresent()
+                            movieRemote.mapToMoviePresent(with: self.moviesService.isMovieFavorite(with: movieRemote.id))
                         }
                     }
                     .catch { _ in
@@ -88,6 +74,5 @@ final class MovieListViewModel {
         } else {
             moviesService.saveFavoriteMovie(movie: movie.mapToLocal())
         }
-
     }
 }
