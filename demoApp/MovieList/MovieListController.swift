@@ -120,35 +120,36 @@ extension MovieListController: MovieCellDelegate {
     private func registerObservers() {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("favoriteClicked"), object: nil, queue: nil) { [weak self] notification in
             guard let welf = self,
-                  let id = notification.userInfo?["id"] as? Int,
+                  let movie = notification.userInfo?["movie"] as? MoviePresent,
                   let itemType = notification.userInfo?["itemType"] as? TabBarItemType,
                   welf.viewModel.itemType != itemType else {return}
             if welf.viewModel.itemType == .favorite {
-//                welf.addRemoveOnFavoriteTab(with: movie)
+                welf.addRemoveOnFavoriteTab(with: movie)
             } else {
-                welf.reloadItemOnUnselectedTabs(with: id)
+                welf.reloadItemOnUnselectedTabs(with: movie)
             }
         }
     }
 
-//    private func addRemoveOnFavoriteTab(with movie: MoviePresent) {
-//        var currentSnapshot = self.dataSource.snapshot()
-//        if movie.isFavorite {
-//            var newMovie = movie
-//            newMovie.toggleIsFavorite()
-//            currentSnapshot.appendItems([newMovie])
-//        } else {
-//            currentSnapshot.deleteItems([movie])
-//
-//        }
-//        self.dataSource.apply(currentSnapshot, animatingDifferences: false, completion: nil)
-//    }
+    private func addRemoveOnFavoriteTab(with movie: MoviePresent) {
+        var currentSnapshot = self.dataSource.snapshot()
+        if let currentMovie =  currentSnapshot.itemIdentifiers.first(where: { moviePresent in
+            moviePresent.id == movie.id
+        }) {
+            currentSnapshot.deleteItems([currentMovie])
+        } else {
+            print("Movie in tabItem: \(viewModel.itemType) has isFavorite value: \(movie.isFavorite) after toggle")
+            let newMovie: MoviePresent = movie.copy() as! MoviePresent
+            currentSnapshot.appendItems([newMovie])
+        }
+        self.dataSource.apply(currentSnapshot, animatingDifferences: false, completion: nil)
+    }
 
-    private func reloadItemOnUnselectedTabs(with id: Int) {
-        var currentSnapshot = dataSource.snapshot()
-        if var movie = currentSnapshot.itemIdentifiers.first { moviePresent in
-            moviePresent.id == id
-        } {
+    private func reloadItemOnUnselectedTabs(with clickedMovie: MoviePresent) {
+        let currentSnapshot = dataSource.snapshot()
+        if let movie = currentSnapshot.itemIdentifiers.first(where: { moviePresent in
+            moviePresent.id == clickedMovie.id
+        }) {
             movie.toggleIsFavorite()
             print("Movie in tabItem: \(viewModel.itemType) has isFavorite value: \(movie.isFavorite) after toggle")
 

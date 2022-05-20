@@ -7,7 +7,11 @@
 
 import Foundation
 
-class MoviePresent: Hashable {
+class MoviePresent: Hashable, NSCopying {
+    func copy(with zone: NSZone? = nil) -> Any {
+        return MoviePresent(id: id, posterPath: posterPath, originalTitle: originalTitle, voteAverage: voteAverage, overview: overview, isFavorite: isFavorite)
+    }
+
     var id: Int = 0
     var posterPath: String = ""
     var originalTitle: String = ""
@@ -21,6 +25,15 @@ class MoviePresent: Hashable {
 
     static func == (lhs: MoviePresent, rhs: MoviePresent) -> Bool {
         return lhs.id == rhs.id
+    }
+
+    init(id: Int, posterPath: String, originalTitle: String, voteAverage: Double, overview: String, isFavorite: Bool) {
+        self.id = id
+        self.posterPath = posterPath
+        self.originalTitle = originalTitle
+        self.voteAverage = voteAverage
+        self.overview = overview
+        self.isFavorite = isFavorite
     }
 
     init(with movie: MovieRemote, isFavorite: Bool) {
