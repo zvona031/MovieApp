@@ -7,6 +7,7 @@
 
 import Resolver
 import Combine
+import Foundation
 
 final class MovieListViewModel {
     @Injected private var moviesService: MoviesRepository
@@ -69,10 +70,12 @@ final class MovieListViewModel {
     }
 
     func favoriteClicked(with movie: MoviePresent) {
+        NotificationCenter.default.post(name: NSNotification.Name("favoriteClicked"), object: nil, userInfo: ["id": movie.id, "itemType": itemType])
         if movie.isFavorite {
-            moviesService.removeFavoriteMovie(movie: movie.mapToLocal())
-        } else {
             moviesService.saveFavoriteMovie(movie: movie.mapToLocal())
+        } else {
+            moviesService.removeFavoriteMovie(movie: movie.mapToLocal())
         }
     }
+
 }

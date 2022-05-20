@@ -35,6 +35,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }
 
     @IBAction func hearButtonTapped(_ sender: Any) {
+        movie.toggleIsFavorite()
         delegate?.favoriteClicked(with: movie)
         heartButton.isSelected.toggle()
     }

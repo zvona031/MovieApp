@@ -26,6 +26,6 @@ class MovieLocal: Object {
 
 extension MovieLocal {
     final func mapToMoviePresent() -> MoviePresent {
-        return MoviePresent(id: id, posterPath: posterPath, originalTitle: originalTitle, voteAverage: voteAverage, overview: overview, isFavorite: true)
+        return MoviePresent(with: self)
     }
 }
