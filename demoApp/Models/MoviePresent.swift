@@ -12,12 +12,12 @@ class MoviePresent: Hashable, NSCopying {
         return MoviePresent(id: id, posterPath: posterPath, originalTitle: originalTitle, voteAverage: voteAverage, overview: overview, isFavorite: isFavorite)
     }
 
-    var id: Int = 0
-    var posterPath: String = ""
-    var originalTitle: String = ""
-    var voteAverage: Double = 0.0
-    var overview: String = ""
-    var isFavorite: Bool = false
+    var id: Int
+    var posterPath: String
+    var originalTitle: String
+    var voteAverage: Double
+    var overview: String
+    var isFavorite: Bool
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -53,7 +53,6 @@ class MoviePresent: Hashable, NSCopying {
         self.overview = movie.overview
         self.isFavorite = true
     }
-
 }
 
 extension MoviePresent {

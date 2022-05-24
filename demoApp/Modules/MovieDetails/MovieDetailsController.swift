@@ -16,14 +16,16 @@ class MovieDetailsController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        movieTitleLabel.text = viewModel.movie.originalTitle
-        let url = URL(string: "https://image.tmdb.org/t/p/w400" + viewModel.movie.posterPath)
-        coverImageView.kf.indicatorType = .activity
-        coverImageView.kf.setImage(with: url)
+        setMovieDetails()
     }
 
     final func config(with viewModel: MovieDetailsViewModel) {
         self.viewModel = viewModel
+    }
 
+    private func setMovieDetails() {
+        movieTitleLabel.text = viewModel.movie.originalTitle
+        coverImageView.kf.indicatorType = .activity
+        coverImageView.kf.setImage(with: viewModel.coverUrl)
     }
 }

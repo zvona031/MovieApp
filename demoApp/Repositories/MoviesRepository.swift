@@ -10,7 +10,7 @@ import Resolver
 import RealmSwift
 
 protocol MoviesRepository {
-    func getLatestMovies(with queryRequest: QueryRequestable) -> AnyPublisher<MovieListResponse, Error>
+    func getUpcomingMovies() -> AnyPublisher<MovieListResponse, Error>
     func getPopularMovies() -> AnyPublisher<MovieListResponse, Error>
     func getFavoriteMovies() -> Results<MovieLocal>
     func isMovieFavorite(with id: Int) -> Bool
@@ -22,8 +22,8 @@ final class MoviesRepositoryImpl: MoviesRepository {
     @Injected private var networkService: Networking
     @Injected private var databaseService: DatabaseService
 
-    func getLatestMovies(with queryRequest: QueryRequestable) -> AnyPublisher<MovieListResponse, Error> {
-        networkService.request(endpoint: Endpoint.getLatestMovies(queryRequest))
+    func getUpcomingMovies() -> AnyPublisher<MovieListResponse, Error> {
+        networkService.request(endpoint: Endpoint.getUpcomingMovies)
     }
 
     func getPopularMovies() -> AnyPublisher<MovieListResponse, Error> {
@@ -50,7 +50,7 @@ final class MoviesRepositoryImpl: MoviesRepository {
 // MARK: - Endpoints
 extension MoviesRepositoryImpl {
     enum Endpoint {
-        case getLatestMovies(QueryRequestable)
+        case getUpcomingMovies
         case getPopularMovies
     }
 }
@@ -58,35 +58,35 @@ extension MoviesRepositoryImpl {
 extension MoviesRepositoryImpl.Endpoint: APIConfigurable {
     var path: String {
         switch self {
-        case .getLatestMovies: return "/movie/latest"
+        case .getUpcomingMovies: return "movie/upcoming"
         case .getPopularMovies: return "/movie/popular"
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .getLatestMovies: return .get
+        case .getUpcomingMovies: return .get
         case .getPopularMovies: return .get
         }
     }
 
     var headers: [String: String]? {
         switch self {
-        case .getLatestMovies: return nil
+        case .getUpcomingMovies: return nil
         case .getPopularMovies: return nil
         }
     }
 
     var queryRequestable: QueryRequestable? {
         switch self {
-        case .getLatestMovies(let queryRequestable): return queryRequestable
+        case .getUpcomingMovies: return nil
         case .getPopularMovies: return nil
         }
     }
 
     var bodyRequestable: BodyRequestable? {
         switch self {
-        case .getLatestMovies: return nil
+        case .getUpcomingMovies: return nil
         case .getPopularMovies: return nil
         }
     }

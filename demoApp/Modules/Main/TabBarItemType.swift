@@ -8,15 +8,15 @@
 import UIKit
 
 enum TabBarItemType: CaseIterable {
-    case latest
     case popular
+    case upcoming
     case favorite
     case search
 
     var tabBarTitle: String {
         switch self {
-        case .latest:
-            return "Latest"
+        case .upcoming:
+            return "Upcoming"
         case .popular:
             return "Popular"
         case .favorite:
@@ -28,7 +28,7 @@ enum TabBarItemType: CaseIterable {
 
     var tabBarImage: UIImage? {
         switch self {
-        case .latest:
+        case .upcoming:
             return UIImage(systemName: "timer")
         case .popular:
             return UIImage(systemName: "flame")

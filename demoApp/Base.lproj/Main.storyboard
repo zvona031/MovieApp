@@ -61,6 +61,52 @@
             </objects>
             <point key="canvasLocation" x="1513.0434782608697" y="37.5"/>
         </scene>
+        <!--Movie Search View Controller-->
+        <scene sceneID="wXn-sl-FnX">
+            <objects>
+                <viewController storyboardIdentifier="MovieSearchViewController" id="d6p-oi-cli" customClass="MovieSearchViewController" customModule="demoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="y8O-O4-Kka">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="gVd-NO-gBE">
+                                <rect key="frame" x="0.0" y="88" width="414" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="68P-Iz-wis">
+                                <rect key="frame" x="0.0" y="139" width="414" height="723"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vdL-d2-p2x">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Hmu-Kh-bln"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="68P-Iz-wis" firstAttribute="top" secondItem="gVd-NO-gBE" secondAttribute="bottom" id="7HR-eF-z6I"/>
+                            <constraint firstItem="Hmu-Kh-bln" firstAttribute="trailing" secondItem="68P-Iz-wis" secondAttribute="trailing" id="HXp-yY-BNS"/>
+                            <constraint firstItem="gVd-NO-gBE" firstAttribute="trailing" secondItem="Hmu-Kh-bln" secondAttribute="trailing" id="NQE-c0-OmX"/>
+                            <constraint firstItem="gVd-NO-gBE" firstAttribute="top" secondItem="Hmu-Kh-bln" secondAttribute="top" id="nHh-td-NxR"/>
+                            <constraint firstItem="68P-Iz-wis" firstAttribute="leading" secondItem="Hmu-Kh-bln" secondAttribute="leading" id="ogA-p5-7fo"/>
+                            <constraint firstItem="Hmu-Kh-bln" firstAttribute="bottom" secondItem="68P-Iz-wis" secondAttribute="bottom" id="r66-Va-t8H"/>
+                            <constraint firstItem="gVd-NO-gBE" firstAttribute="leading" secondItem="Hmu-Kh-bln" secondAttribute="leading" id="tEe-Uv-6Ik"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pbV-Vt-7XG"/>
+                    <connections>
+                        <outlet property="collectionView" destination="68P-Iz-wis" id="fQd-6G-s2V"/>
+                        <outlet property="searchBar" destination="gVd-NO-gBE" id="KHc-zd-V6y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YuS-ho-0Cg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1513" y="753"/>
+        </scene>
         <!--Movie Details Controller-->
         <scene sceneID="R4Y-2t-pOf">
             <objects>
@@ -119,6 +165,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Hh-aN-h19" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="602.89855072463774" y="37.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Vhj-48-Yli">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M6w-hl-0Aq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ehT-iu-Dyd">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="d6p-oi-cli" kind="relationship" relationship="rootViewController" id="lWt-Gw-w3E"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c1H-dD-aS8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="603" y="753"/>
         </scene>
     </scenes>
     <resources>
