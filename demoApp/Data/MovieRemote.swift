@@ -15,7 +15,7 @@ struct MovieRemote: Codable, Hashable {
     }
 
     let id: Int
-    let posterPath: String
+    let posterPath: String?
     let originalTitle: String
     let voteAverage: Double
     let overview: String

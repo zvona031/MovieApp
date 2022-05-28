@@ -13,7 +13,7 @@ class MoviePresent: Hashable, NSCopying {
     }
 
     var id: Int
-    var posterPath: String
+    var posterPath: String?
     var originalTitle: String
     var voteAverage: Double
     var overview: String
@@ -27,7 +27,7 @@ class MoviePresent: Hashable, NSCopying {
         return lhs.id == rhs.id
     }
 
-    init(id: Int, posterPath: String, originalTitle: String, voteAverage: Double, overview: String, isFavorite: Bool) {
+    init(id: Int, posterPath: String?, originalTitle: String, voteAverage: Double, overview: String, isFavorite: Bool) {
         self.id = id
         self.posterPath = posterPath
         self.originalTitle = originalTitle
@@ -66,5 +66,13 @@ extension MoviePresent {
 
     func toggleIsFavorite() {
         self.isFavorite.toggle()
+    }
+
+    var moviePosterUrl: URL? {
+        if let posterPath = posterPath {
+            return URL(string: "https://image.tmdb.org/t/p/w400" + posterPath)
+        } else {
+            return nil
+        }
     }
 }

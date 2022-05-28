@@ -11,9 +11,7 @@ import Resolver
 import Combine
 
 class MovieListController: BaseListViewController {
-
     // MARK: - Properties
-
     private let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {

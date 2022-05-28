@@ -31,7 +31,6 @@ class TabBarController: UITabBarController {
                 let navigationController = UINavigationController(rootViewController: controller)
                 controllers.append(navigationController)
             }
-
         }
         self.setViewControllers(controllers, animated: true)
     }

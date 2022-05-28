@@ -14,9 +14,6 @@ class MovieSearchViewController: BaseListViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionViewSetup()
-        dataBinding()
-        getMovies()
     }
 
     func config(with viewModel: MovieSearchViewModel) {
@@ -30,5 +27,14 @@ class MovieSearchViewController: BaseListViewController {
             self.applySnapshot(with: movies)
         }
         .store(in: &subscriptions)
+
+        searchBar.searchTextField
+            .textPublisher()
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .sink { [weak self] searchQuery in
+                guard let welf = self else { return }
+                welf.viewModel.searchForMovies(with: searchQuery)
+            }
+            .store(in: &subscriptions)
     }
 }

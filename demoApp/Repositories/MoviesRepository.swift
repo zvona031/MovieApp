@@ -13,6 +13,7 @@ protocol MoviesRepository {
     func getUpcomingMovies() -> AnyPublisher<MovieListResponse, Error>
     func getPopularMovies() -> AnyPublisher<MovieListResponse, Error>
     func getFavoriteMovies() -> Results<MovieLocal>
+    func searchForMovies(with searchQuery: QueryRequestable) -> AnyPublisher<MovieListResponse, Error>
     func isMovieFavorite(with id: Int) -> Bool
     func saveFavoriteMovie(movie: MovieLocal)
     func removeFavoriteMovie(movie: MovieLocal)
@@ -34,6 +35,10 @@ final class MoviesRepositoryImpl: MoviesRepository {
         databaseService.getFavoriteMovies()
     }
 
+    func searchForMovies(with searchQuery: QueryRequestable) -> AnyPublisher<MovieListResponse, Error> {
+        networkService.request(endpoint: Endpoint.searchForMovies(searchQuery))
+    }
+
     func saveFavoriteMovie(movie: MovieLocal) {
         databaseService.saveFavoriteMovie(with: movie)
     }
@@ -52,6 +57,7 @@ extension MoviesRepositoryImpl {
     enum Endpoint {
         case getUpcomingMovies
         case getPopularMovies
+        case searchForMovies(QueryRequestable)
     }
 }
 
@@ -59,7 +65,8 @@ extension MoviesRepositoryImpl.Endpoint: APIConfigurable {
     var path: String {
         switch self {
         case .getUpcomingMovies: return "movie/upcoming"
-        case .getPopularMovies: return "/movie/popular"
+        case .getPopularMovies: return "movie/popular"
+        case .searchForMovies: return "search/movie"
         }
     }
 
@@ -67,6 +74,7 @@ extension MoviesRepositoryImpl.Endpoint: APIConfigurable {
         switch self {
         case .getUpcomingMovies: return .get
         case .getPopularMovies: return .get
+        case .searchForMovies: return .get
         }
     }
 
@@ -74,6 +82,7 @@ extension MoviesRepositoryImpl.Endpoint: APIConfigurable {
         switch self {
         case .getUpcomingMovies: return nil
         case .getPopularMovies: return nil
+        case .searchForMovies: return nil
         }
     }
 
@@ -81,6 +90,7 @@ extension MoviesRepositoryImpl.Endpoint: APIConfigurable {
         switch self {
         case .getUpcomingMovies: return nil
         case .getPopularMovies: return nil
+        case .searchForMovies(let searchQuery): return searchQuery
         }
     }
 
@@ -88,6 +98,7 @@ extension MoviesRepositoryImpl.Endpoint: APIConfigurable {
         switch self {
         case .getUpcomingMovies: return nil
         case .getPopularMovies: return nil
+        case .searchForMovies: return nil
         }
     }
 }

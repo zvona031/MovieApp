@@ -29,9 +29,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
         self.delegate = delegate
         self.movie = movie
         self.heartButton.isSelected = movie.isFavorite
-        let url = URL(string: "https://image.tmdb.org/t/p/w400" + movie.posterPath)
         coverImage.kf.indicatorType = .activity
-        coverImage.kf.setImage(with: url)
+        coverImage.kf.setImage(with: movie.moviePosterUrl)
     }
 
     @IBAction func hearButtonTapped(_ sender: Any) {

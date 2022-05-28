@@ -10,10 +10,6 @@ import Combine
 import UIKit
 import Resolver
 
-protocol BaseListViewProtocol {
-    
-}
-
 class BaseListViewController: UIViewController {
     enum Section {
         case main
@@ -27,7 +23,7 @@ class BaseListViewController: UIViewController {
 
     // MARK: - Properties
     var viewModel: BaseViewModel!
-    private (set) var subscriptions = Set<AnyCancellable>()
+    var subscriptions = Set<AnyCancellable>()
     private lazy var dataSource: DataSource = {
         let dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie -> MovieCollectionViewCell? in
             let cell: MovieCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
@@ -107,22 +103,26 @@ extension BaseListViewController: MovieCellDelegate {
                   let itemType = notification.userInfo?["itemType"] as? TabBarItemType,
                   welf.viewModel.itemType != itemType else { return }
             if welf.viewModel.itemType == .favorite {
-                welf.addRemoveOnFavoriteTab(with: movie)
+                welf.updateFavoriteTabData(with: movie)
             } else {
                 welf.reloadItemOnUnselectedTabs(with: movie)
             }
         }
     }
 
-    func addRemoveOnFavoriteTab(with movie: MoviePresent) {
+    func updateFavoriteTabData(with movie: MoviePresent) {
         var currentSnapshot = self.dataSource.snapshot()
         if let currentMovie = currentSnapshot.itemIdentifiers.first( where: { moviePresent in
             moviePresent.id == movie.id
         }) {
             currentSnapshot.deleteItems([currentMovie])
         } else {
-            if let newMovie: MoviePresent = movie.copy() as? MoviePresent, let firstItem = currentSnapshot.itemIdentifiers.first {
-                currentSnapshot.insertItems([newMovie], beforeItem: firstItem)
+            if let newMovie: MoviePresent = movie.copy() as? MoviePresent {
+                if let firstItem = currentSnapshot.itemIdentifiers.first {
+                    currentSnapshot.insertItems([newMovie], beforeItem: firstItem)
+                } else {
+                    currentSnapshot.appendItems([newMovie])
+                }
             }
         }
         self.dataSource.apply(currentSnapshot, animatingDifferences: false, completion: nil)

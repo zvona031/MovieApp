@@ -10,11 +10,10 @@ import Combine
 import Foundation
 
 class MovieSearchViewModel: BaseViewModel {
-
-    override func getPopularMovies() {
+    override func searchForMovies(with searchText: String) {
         Just<Void>(())
             .flatMap { [unowned self] in
-                moviesService.getPopularMovies()
+                moviesService.searchForMovies(with: MovieSearchRequest(query: searchText))
                     .map { movieListResponse in
                         movieListResponse.movies.map { movieRemote in
                             movieRemote.mapToMoviePresent(with: self.moviesService.isMovieFavorite(with: movieRemote.id))

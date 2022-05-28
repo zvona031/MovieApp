@@ -15,7 +15,7 @@ class MovieDetailsViewModel {
         self.movie = movie
     }
 
-    var coverUrl: URL? {
-        return URL(string: "https://image.tmdb.org/t/p/w400" + movie.posterPath)
+    var moviePosterUrl: URL? {
+        return movie.moviePosterUrl
     }
 }

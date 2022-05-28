@@ -27,7 +27,7 @@ class BaseViewModel {
         case .favorite:
             getFavoriteMovies()
         case .search:
-            getPopularMovies()
+            return
         }
     }
 
@@ -40,6 +40,10 @@ class BaseViewModel {
     }
 
     func getUpcomingMovies() {
+        fatalError("Must Override")
+    }
+
+    func searchForMovies(with searchText: String) {
         fatalError("Must Override")
     }
 

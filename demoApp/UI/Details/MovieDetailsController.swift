@@ -26,6 +26,6 @@ class MovieDetailsController: UIViewController {
     private func setMovieDetails() {
         movieTitleLabel.text = viewModel.movie.originalTitle
         coverImageView.kf.indicatorType = .activity
-        coverImageView.kf.setImage(with: viewModel.coverUrl)
+        coverImageView.kf.setImage(with: viewModel.moviePosterUrl)
     }
 }

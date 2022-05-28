@@ -9,7 +9,7 @@ import RealmSwift
 
 class MovieLocal: Object {
     @Persisted(primaryKey: true) var id: Int
-    @Persisted var posterPath: String
+    @Persisted var posterPath: String?
     @Persisted var originalTitle: String
     @Persisted var voteAverage: Double
     @Persisted var overview: String
