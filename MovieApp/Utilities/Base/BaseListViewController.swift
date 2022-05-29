@@ -71,20 +71,44 @@ extension BaseListViewController {
 
     private func generateLayout() -> UICollectionViewLayout {
         // Item
-        let itemSize = NSCollectionLayoutSize(
+        let smallCoverItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalHeight(1))
-        let fullPhotoItem = NSCollectionLayoutItem(layoutSize: itemSize)
-        // Group
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalWidth(0.5))
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitem: fullPhotoItem,
+            heightDimension: .fractionalHeight(1)))
+        // Group of 3 horizontal smallCoverItems
+        let horiontalSmallGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1/6)),
+            subitem: smallCoverItem,
             count: 3)
+
+        let bigCoverItem = NSCollectionLayoutItem(
+          layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(2/3),
+            heightDimension: .fractionalHeight(1.0)))
+
+        let verticalSmallGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1/3),
+            heightDimension: .fractionalHeight(1.0)), subitem: smallCoverItem, count: 2)
+
+        let mainWithPairGroup = NSCollectionLayoutGroup.horizontal(
+          layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(2/6)),
+          subitems: [bigCoverItem, verticalSmallGroup])
+
+        let mainWithPairInverseGroup = NSCollectionLayoutGroup.horizontal(
+          layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(2/6)),
+          subitems: [verticalSmallGroup, bigCoverItem])
+
+        let finalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(3)), subitems: [horiontalSmallGroup, mainWithPairGroup, horiontalSmallGroup, mainWithPairInverseGroup])
+
         // Section
-        let section = NSCollectionLayoutSection(group: group)
+        let section = NSCollectionLayoutSection(group: finalGroup)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
