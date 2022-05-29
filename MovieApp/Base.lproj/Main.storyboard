@@ -11,7 +11,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="oA2-NE-15x">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="drY-Ra-zSo" customClass="TabBarController" customModule="demoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="drY-Ra-zSo" customClass="TabBarController" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CZE-rx-fPb">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -26,7 +26,7 @@
         <!--Movie List Controller-->
         <scene sceneID="gG0-P2-et8">
             <objects>
-                <viewController storyboardIdentifier="MovieListController" id="w9V-w9-LZQ" customClass="MovieListController" customModule="demoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieListController" id="w9V-w9-LZQ" customClass="MovieListController" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qnm-fG-GED">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,7 +34,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FKk-CU-niD">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="dE4-Xn-6SX">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NU2-C9-tWA">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -64,7 +64,7 @@
         <!--Movie Search View Controller-->
         <scene sceneID="wXn-sl-FnX">
             <objects>
-                <viewController storyboardIdentifier="MovieSearchViewController" id="d6p-oi-cli" customClass="MovieSearchViewController" customModule="demoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieSearchViewController" id="d6p-oi-cli" customClass="MovieSearchViewController" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y8O-O4-Kka">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,7 +110,7 @@
         <!--Movie Details Controller-->
         <scene sceneID="R4Y-2t-pOf">
             <objects>
-                <viewController storyboardIdentifier="MovieDetailsController" id="rIL-w3-4cr" customClass="MovieDetailsController" customModule="demoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetailsController" id="rIL-w3-4cr" customClass="MovieDetailsController" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bEb-j7-C98">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

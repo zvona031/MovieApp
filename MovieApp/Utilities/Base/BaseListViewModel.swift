@@ -31,7 +31,7 @@ class BaseViewModel {
         }
     }
 
-    internal func getPopularMovies() {
+    func getPopularMovies() {
         fatalError("Must Override")
     }
 

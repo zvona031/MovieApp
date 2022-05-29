@@ -12,7 +12,7 @@ import Resolver
 
 class BaseListViewController: UIViewController {
     enum Section {
-        case main
+        case movieList
     }
 
     typealias DataSource = UICollectionViewDiffableDataSource<Section, MoviePresent>
@@ -42,8 +42,8 @@ class BaseListViewController: UIViewController {
     }
 
     func collectionViewSetup() {
-        collectionView.delegate = self
         collectionView.registerNib(MovieCollectionViewCell.self)
+        collectionView.collectionViewLayout = generateLayout()
     }
 
     func getMovies() {
@@ -56,29 +56,41 @@ class BaseListViewController: UIViewController {
 
     func applySnapshot(with movies: [MoviePresent]) {
         var snapshot = Snapshot()
-        snapshot.appendSections([.main])
+        snapshot.appendSections([.movieList])
         snapshot.appendItems(movies)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
-extension BaseListViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = UIScreen.main.bounds.size.width / 2
-        let height = width * 1.5
-        return CGSize(width: width, height: height)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    // MARK: - Collection view stuff extension
+extension BaseListViewController {
+    private func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let movie = viewModel.movies.self[safe: indexPath.row] else { return }
         showMovieDetails(for: movie)
     }
+
+    private func generateLayout() -> UICollectionViewLayout {
+        // Item
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalHeight(1))
+        let fullPhotoItem = NSCollectionLayoutItem(layoutSize: itemSize)
+        // Group
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(0.5))
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitem: fullPhotoItem,
+            count: 3)
+        // Section
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
 }
 
+// MARK: - MovieCellDelegate extension
 extension BaseListViewController: MovieCellDelegate {
     func favoriteClicked(with movie: MoviePresent) {
         if viewModel.itemType == .favorite {
@@ -95,7 +107,10 @@ extension BaseListViewController: MovieCellDelegate {
         controller.config(with: Resolver.resolve(args: movie))
         self.navigationController?.pushViewController(controller, animated: true)
     }
+}
 
+// MARK: - Observing stuff extension
+extension BaseListViewController {
     private func registerObservers() {
         NotificationCenter.default.addObserver(forName: .favoriteClicked, object: nil, queue: nil) { [weak self] notification in
             guard let welf = self,
