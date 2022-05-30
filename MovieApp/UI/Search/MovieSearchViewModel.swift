@@ -13,10 +13,10 @@ class MovieSearchViewModel: BaseViewModel {
     override func searchForMovies(with searchText: String) {
         Just<Void>(())
             .flatMap { [unowned self] in
-                moviesService.searchForMovies(with: MovieSearchRequest(query: searchText))
+                moviesRepository.searchForMovies(with: MovieSearchRequest(query: searchText))
                     .map { movieListResponse in
                         movieListResponse.movies.map { movieRemote in
-                            movieRemote.mapToMoviePresent(with: self.moviesService.isMovieFavorite(with: movieRemote.id))
+                            movieRemote.mapToMoviePresent(with: self.moviesRepository.isMovieFavorite(with: movieRemote.id))
                         }
                     }
                     .catch { _ in

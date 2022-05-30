@@ -13,21 +13,28 @@ final class MovieListViewModel: BaseViewModel {
     override func getPopularMovies() {
         Just<Void>(())
             .flatMap { [unowned self] in
-                moviesService.getPopularMovies()
+                moviesRepository.getPopularMovies(with: MoviePaginationRequest(page: currentPage))
                     .map { movieListResponse in
-                        movieListResponse.movies.map { movieRemote in
-                            movieRemote.mapToMoviePresent(with: self.moviesService.isMovieFavorite(with: movieRemote.id))
+                        self.currentPage = movieListResponse.page
+                        self.totalPages = movieListResponse.totalPages
+                        self.paginationInProgress = false
+                        if self.currentPage == 1 { self.movies.removeAll() }
+                        return movieListResponse.movies.map { movieRemote in
+                            movieRemote.mapToMoviePresent(with: self.moviesRepository.isMovieFavorite(with: movieRemote.id))
                         }
                     }
                     .catch { _ in
                         Just<[MoviePresent]>([])
                     }
             }
-            .assign(to: &$movies)
+            .sink { newMovies in
+                self.movies.append(contentsOf: newMovies)
+            }
+            .store(in: &subscriptions)
     }
 
     override func getFavoriteMovies() {
-        movies = moviesService.getFavoriteMovies()
+        movies = moviesRepository.getFavoriteMovies()
             .map { movieLocal in
             movieLocal.mapToMoviePresent()
             }
@@ -37,16 +44,24 @@ final class MovieListViewModel: BaseViewModel {
     override func getUpcomingMovies() {
         Just<Void>(())
             .flatMap { [unowned self] in
-                moviesService.getUpcomingMovies()
+                moviesRepository.getUpcomingMovies(with: MoviePaginationRequest(page: currentPage))
                     .map { movieListResponse in
-                        movieListResponse.movies.map { movieRemote in
-                            movieRemote.mapToMoviePresent(with: self.moviesService.isMovieFavorite(with: movieRemote.id))
+                        self.currentPage = movieListResponse.page
+                        self.totalPages = movieListResponse.totalPages
+                        self.paginationInProgress = false
+                        if self.currentPage == 1 { self.movies.removeAll() }
+                        return movieListResponse.movies.map { movieRemote in
+                            movieRemote.mapToMoviePresent(with: self.moviesRepository.isMovieFavorite(with: movieRemote.id))
                         }
                     }
                     .catch { _ in
                         Just<[MoviePresent]>([])
                     }
             }
-            .assign(to: &$movies)
+            .sink { newMovies in
+
+                self.movies.append(contentsOf: newMovies)
+            }
+            .store(in: &subscriptions)
     }
 }

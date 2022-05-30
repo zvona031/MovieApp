@@ -44,7 +44,7 @@ class NetworkService: Networking {
             }
             .decode(type: Value.self, decoder: JSONDecoder())
             .handleEvents(receiveOutput: { decodable in
-                print("Response: ", decodable)
+//                print("Response: ", decodable)
             })
             .eraseToAnyPublisher()
     }

@@ -10,8 +10,8 @@ import Resolver
 import RealmSwift
 
 protocol MoviesRepository {
-    func getUpcomingMovies() -> AnyPublisher<MovieListResponse, Error>
-    func getPopularMovies() -> AnyPublisher<MovieListResponse, Error>
+    func getUpcomingMovies(with paginationQuery: QueryRequestable) -> AnyPublisher<MovieListResponse, Error>
+    func getPopularMovies(with paginationQuery: QueryRequestable) -> AnyPublisher<MovieListResponse, Error>
     func getFavoriteMovies() -> Results<MovieLocal>
     func searchForMovies(with searchQuery: QueryRequestable) -> AnyPublisher<MovieListResponse, Error>
     func isMovieFavorite(with id: Int) -> Bool
@@ -23,12 +23,12 @@ final class MoviesRepositoryImpl: MoviesRepository {
     @Injected private var networkService: Networking
     @Injected private var databaseService: DatabaseService
 
-    func getUpcomingMovies() -> AnyPublisher<MovieListResponse, Error> {
-        networkService.request(endpoint: Endpoint.getUpcomingMovies)
+    func getUpcomingMovies(with paginationQuery: QueryRequestable) -> AnyPublisher<MovieListResponse, Error> {
+        networkService.request(endpoint: Endpoint.getUpcomingMovies(paginationQuery))
     }
 
-    func getPopularMovies() -> AnyPublisher<MovieListResponse, Error> {
-        networkService.request(endpoint: Endpoint.getPopularMovies)
+    func getPopularMovies(with paginationQuery: QueryRequestable) -> AnyPublisher<MovieListResponse, Error> {
+        networkService.request(endpoint: Endpoint.getPopularMovies(paginationQuery))
     }
 
     func getFavoriteMovies() -> Results<MovieLocal> {
@@ -55,8 +55,8 @@ final class MoviesRepositoryImpl: MoviesRepository {
 // MARK: - Endpoints
 extension MoviesRepositoryImpl {
     enum Endpoint {
-        case getUpcomingMovies
-        case getPopularMovies
+        case getUpcomingMovies(QueryRequestable)
+        case getPopularMovies(QueryRequestable)
         case searchForMovies(QueryRequestable)
     }
 }
@@ -88,8 +88,8 @@ extension MoviesRepositoryImpl.Endpoint: APIConfigurable {
 
     var queryRequestable: QueryRequestable? {
         switch self {
-        case .getUpcomingMovies: return nil
-        case .getPopularMovies: return nil
+        case .getUpcomingMovies(let paginationQuery): return paginationQuery
+        case .getPopularMovies(let paginationQuery): return paginationQuery
         case .searchForMovies(let searchQuery): return searchQuery
         }
     }

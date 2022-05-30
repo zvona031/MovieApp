@@ -42,6 +42,7 @@ class BaseListViewController: UIViewController {
     }
 
     func collectionViewSetup() {
+        collectionView.delegate = self
         collectionView.registerNib(MovieCollectionViewCell.self)
         collectionView.collectionViewLayout = generateLayout()
     }
@@ -63,49 +64,65 @@ class BaseListViewController: UIViewController {
 }
 
     // MARK: - Collection view stuff extension
-extension BaseListViewController {
-    private func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension BaseListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let movie = viewModel.movies.self[safe: indexPath.row] else { return }
         showMovieDetails(for: movie)
     }
 
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print("Index row: \(indexPath.row)")
+        print("Pagination trigger point: \(viewModel.movies.count - 3)")
+        guard indexPath.row > viewModel.movies.count - 3 else {
+            print("Ne treba paginacija")
+            return
+        }
+        viewModel.paginateMovies()
+    }
+
     private func generateLayout() -> UICollectionViewLayout {
-        // Item
-        let smallCoverItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalHeight(1)))
+        // Small cover item
+        let smallCoverItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1)))
         // Group of 3 horizontal smallCoverItems
         let horiontalSmallGroup = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(1/6)),
+                heightDimension: .fractionalHeight(1 / 6)),
             subitem: smallCoverItem,
             count: 3)
 
         let bigCoverItem = NSCollectionLayoutItem(
-          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(2/3),
-            heightDimension: .fractionalHeight(1.0)))
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(2 / 3),
+                heightDimension: .fractionalHeight(1.0)))
 
-        let verticalSmallGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1/3),
-            heightDimension: .fractionalHeight(1.0)), subitem: smallCoverItem, count: 2)
+        let verticalSmallGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1 / 3),
+                heightDimension: .fractionalHeight(1.0)),
+            subitem: smallCoverItem,
+            count: 2)
 
         let mainWithPairGroup = NSCollectionLayoutGroup.horizontal(
-          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(2/6)),
-          subitems: [bigCoverItem, verticalSmallGroup])
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(2 / 6)),
+            subitems: [bigCoverItem, verticalSmallGroup])
 
         let mainWithPairInverseGroup = NSCollectionLayoutGroup.horizontal(
-          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(2/6)),
-          subitems: [verticalSmallGroup, bigCoverItem])
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(2 / 6)),
+            subitems: [verticalSmallGroup, bigCoverItem])
 
-        let finalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalWidth(3)), subitems: [horiontalSmallGroup, mainWithPairGroup, horiontalSmallGroup, mainWithPairInverseGroup])
+        let finalGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalWidth(3)),
+            subitems: [horiontalSmallGroup, mainWithPairGroup, horiontalSmallGroup, mainWithPairInverseGroup])
 
         // Section
         let section = NSCollectionLayoutSection(group: finalGroup)
