@@ -7,11 +7,7 @@
 
 import Foundation
 
-class MoviePresent: Hashable, NSCopying {
-    func copy(with zone: NSZone? = nil) -> Any {
-        return MoviePresent(id: id, posterPath: posterPath, originalTitle: originalTitle, voteAverage: voteAverage, overview: overview, isFavorite: isFavorite)
-    }
-
+struct MoviePresent: Hashable {
     var id: Int
     var posterPath: String?
     var originalTitle: String
@@ -21,6 +17,7 @@ class MoviePresent: Hashable, NSCopying {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+        hasher.combine(isFavorite)
     }
 
     static func == (lhs: MoviePresent, rhs: MoviePresent) -> Bool {
@@ -60,11 +57,11 @@ extension MoviePresent {
         return MovieLocal(with: self)
     }
 
-    func setIsFavorite(with isFavorite: Bool) {
+    mutating func setIsFavorite(with isFavorite: Bool) {
         self.isFavorite = isFavorite
     }
 
-    func toggleIsFavorite() {
+    mutating func toggleIsFavorite() {
         self.isFavorite.toggle()
     }
 

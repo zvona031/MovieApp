@@ -38,7 +38,6 @@ class BaseListViewController: UIViewController {
         collectionViewSetup()
         dataBinding()
         getMovies()
-        registerObservers()
     }
 
     func collectionViewSetup() {
@@ -71,10 +70,7 @@ extension BaseListViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print("Index row: \(indexPath.row)")
-        print("Pagination trigger point: \(viewModel.movies.count - 3)")
         guard indexPath.row > viewModel.movies.count - 3 else {
-            print("Ne treba paginacija")
             return
         }
         viewModel.paginateMovies()
@@ -134,11 +130,6 @@ extension BaseListViewController: UICollectionViewDelegate {
 // MARK: - MovieCellDelegate extension
 extension BaseListViewController: MovieCellDelegate {
     func favoriteClicked(with movie: MoviePresent) {
-        if viewModel.itemType == .favorite {
-            var currentSnapshot = dataSource.snapshot()
-            currentSnapshot.deleteItems([movie])
-            dataSource.apply(currentSnapshot)
-        }
         viewModel.favoriteClicked(with: movie)
     }
 
@@ -147,52 +138,5 @@ extension BaseListViewController: MovieCellDelegate {
         let controller: MovieDetailsController = storyBoard.getController()
         controller.config(with: Resolver.resolve(args: movie))
         self.navigationController?.pushViewController(controller, animated: true)
-    }
-}
-
-// MARK: - Observing stuff extension
-extension BaseListViewController {
-    private func registerObservers() {
-        NotificationCenter.default.addObserver(forName: .favoriteClicked, object: nil, queue: nil) { [weak self] notification in
-            guard let welf = self,
-                  let movie = notification.userInfo?["movie"] as? MoviePresent,
-                  let itemType = notification.userInfo?["itemType"] as? TabBarItemType,
-                  welf.viewModel.itemType != itemType else { return }
-            if welf.viewModel.itemType == .favorite {
-                welf.updateFavoriteTabData(with: movie)
-            } else {
-                welf.reloadItemOnUnselectedTabs(with: movie)
-            }
-        }
-    }
-
-    func updateFavoriteTabData(with movie: MoviePresent) {
-        var currentSnapshot = self.dataSource.snapshot()
-        if let currentMovie = currentSnapshot.itemIdentifiers.first( where: { moviePresent in
-            moviePresent.id == movie.id
-        }) {
-            currentSnapshot.deleteItems([currentMovie])
-        } else {
-            if let newMovie: MoviePresent = movie.copy() as? MoviePresent {
-                if let firstItem = currentSnapshot.itemIdentifiers.first {
-                    currentSnapshot.insertItems([newMovie], beforeItem: firstItem)
-                } else {
-                    currentSnapshot.appendItems([newMovie])
-                }
-            }
-        }
-        self.dataSource.apply(currentSnapshot, animatingDifferences: false, completion: nil)
-    }
-
-    func reloadItemOnUnselectedTabs(with clickedMovie: MoviePresent) {
-        let currentSnapshot = dataSource.snapshot()
-        if let movie = currentSnapshot.itemIdentifiers.first(where: { moviePresent in
-            moviePresent.id == clickedMovie.id
-        }) {
-            movie.toggleIsFavorite()
-            var newSnapshot = dataSource.snapshot()
-            newSnapshot.reloadItems([movie])
-            self.dataSource.apply(newSnapshot, animatingDifferences: false, completion: nil)
-        }
     }
 }
