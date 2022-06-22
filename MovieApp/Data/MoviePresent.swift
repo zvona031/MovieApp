@@ -21,7 +21,7 @@ struct MoviePresent: Hashable {
     }
 
     static func == (lhs: MoviePresent, rhs: MoviePresent) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.id == rhs.id && lhs.isFavorite == rhs.isFavorite
     }
 
     init(id: Int, posterPath: String?, originalTitle: String, voteAverage: Double, overview: String, isFavorite: Bool) {

@@ -16,7 +16,7 @@ class BaseViewModel {
     var currentPage: Int = 1
     var totalPages: Int = 1
     var subscriptions = Set<AnyCancellable>()
-    var paginationInProgress = false
+    var fetchingInProgress = false
 
     init(withType itemType: TabBarItemType) {
         self.itemType = itemType
@@ -25,6 +25,8 @@ class BaseViewModel {
 
     func getMovies() {
         currentPage = 1
+        guard fetchingInProgress == false else { return }
+        fetchingInProgress = true
         switch itemType {
         case .upcoming:
             getUpcomingMovies()
@@ -39,9 +41,9 @@ class BaseViewModel {
 
     func paginateMovies() {
         guard totalPages >= currentPage + 1,
-        paginationInProgress == false else { return }
+        fetchingInProgress == false else { return }
         currentPage += 1
-        paginationInProgress = true
+        fetchingInProgress = true
         switch itemType {
         case .upcoming:
             getUpcomingMovies()
@@ -71,22 +73,22 @@ class BaseViewModel {
     }
 
     func favoriteClicked(with movie: MoviePresent) {
-        NotificationCenter.default.post(name: .favoriteClicked, object: nil, userInfo: ["movie": movie, "itemType": itemType])
+//        NotificationCenter.default.post(name: .favoriteClicked, object: nil, userInfo: ["movie": movie, "itemType": itemType])
         updateDataSource(with: movie)
         updateDatabase(with: movie)
     }
 
     private func registerObservers() {
-        NotificationCenter.default.addObserver(forName: .favoriteClicked, object: nil, queue: nil) { [weak self] notification in
-            guard let welf = self,
-                  let movie = notification.userInfo?["movie"] as? MoviePresent,
-                  let itemType = notification.userInfo?["itemType"] as? TabBarItemType,
-                  itemType != welf.itemType else { return }
-            welf.updateDataSource(with: movie)
-        }
+//        NotificationCenter.default.addObserver(forName: .favoriteClicked, object: nil, queue: nil) { [weak self] notification in
+//            guard let welf = self,
+//                  let movie = notification.userInfo?["movie"] as? MoviePresent,
+//                  let itemType = notification.userInfo?["itemType"] as? TabBarItemType,
+//                  itemType != welf.itemType else { return }
+//            welf.updateDataSource(with: movie)
+//        }
     }
 
-    private func updateDataSource(with movie: MoviePresent) {
+    func updateDataSource(with movie: MoviePresent) {
         if let index = movies.firstIndex(where: { $0.id == movie.id }) {
             if itemType == .favorite {
                 movies.remove(at: index)

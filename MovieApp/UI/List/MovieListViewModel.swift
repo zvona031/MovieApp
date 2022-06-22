@@ -17,7 +17,6 @@ final class MovieListViewModel: BaseViewModel {
                     .map { movieListResponse in
                         self.currentPage = movieListResponse.page
                         self.totalPages = movieListResponse.totalPages
-                        self.paginationInProgress = false
                         if self.currentPage == 1 { self.movies.removeAll() }
                         return movieListResponse.movies.map { movieRemote in
                             movieRemote.mapToMoviePresent(with: self.moviesRepository.isMovieFavorite(with: movieRemote.id))
@@ -29,6 +28,7 @@ final class MovieListViewModel: BaseViewModel {
             }
             .sink { newMovies in
                 self.movies.append(contentsOf: newMovies)
+                self.fetchingInProgress = false
             }
             .store(in: &subscriptions)
     }
@@ -48,7 +48,6 @@ final class MovieListViewModel: BaseViewModel {
                     .map { movieListResponse in
                         self.currentPage = movieListResponse.page
                         self.totalPages = movieListResponse.totalPages
-                        self.paginationInProgress = false
                         if self.currentPage == 1 { self.movies.removeAll() }
                         return movieListResponse.movies.map { movieRemote in
                             movieRemote.mapToMoviePresent(with: self.moviesRepository.isMovieFavorite(with: movieRemote.id))
@@ -59,8 +58,8 @@ final class MovieListViewModel: BaseViewModel {
                     }
             }
             .sink { newMovies in
-
                 self.movies.append(contentsOf: newMovies)
+                self.fetchingInProgress = false
             }
             .store(in: &subscriptions)
     }

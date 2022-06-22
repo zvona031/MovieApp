@@ -7,26 +7,25 @@
 
 import Kingfisher
 import UIKit
-
-protocol MovieCellDelegate: AnyObject {
-    func favoriteClicked(with movie: MoviePresent)
-}
+import Combine
 
 class MovieCollectionViewCell: UICollectionViewCell {
-    private var delegate: MovieCellDelegate!
     private var movie: MoviePresent!
+    private let tapSubject = PassthroughSubject<MoviePresent, Never>()
+    var subscriptions = Set<AnyCancellable>()
+    lazy var tapPublisher: AnyPublisher<MoviePresent, Never> = {
+        self.tapSubject.eraseToAnyPublisher()
+    }()
 
     // MARK: - IBOutlets
     @IBOutlet weak var coverImage: UIImageView!
     @IBOutlet weak var heartButton: UIButton!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func prepareForReuse() {
+        subscriptions.removeAll()
     }
 
-
-    final func config(with movie: MoviePresent, delegate: MovieCellDelegate) {
-        self.delegate = delegate
+    final func config(with movie: MoviePresent) {
         self.movie = movie
         self.heartButton.isSelected = movie.isFavorite
         coverImage.kf.indicatorType = .activity
@@ -35,7 +34,6 @@ class MovieCollectionViewCell: UICollectionViewCell {
 
     @IBAction func hearButtonTapped(_ sender: Any) {
         movie.toggleIsFavorite()
-        delegate?.favoriteClicked(with: movie)
-//        heartButton.isSelected.toggle()
+        tapSubject.send(movie)
     }
 }

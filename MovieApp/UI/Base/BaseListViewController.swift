@@ -27,10 +27,22 @@ class BaseListViewController: UIViewController {
     private lazy var dataSource: DataSource = {
         let dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie -> MovieCollectionViewCell? in
             let cell: MovieCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-            cell.config(with: movie, delegate: self)
+            cell.config(with: movie)
+            cell.tapPublisher
+                .sink { tappedMovie in
+                    print("tap")
+                    self.viewModel.favoriteClicked(with: tappedMovie)
+                    self.tapSubject.send(MovieTapping(movie: tappedMovie, itemType: self.viewModel.itemType))
+                }
+                .store(in: &cell.subscriptions)
             return cell
             })
         return dataSource
+    }()
+
+    private let tapSubject = PassthroughSubject<MovieTapping, Never>()
+    lazy var tapPublisher = {
+        return self.tapSubject.eraseToAnyPublisher()
     }()
 
     override func viewDidLoad() {
@@ -60,6 +72,10 @@ class BaseListViewController: UIViewController {
         snapshot.appendItems(movies)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
+
+    func movieTapped(with movieTapping: MovieTapping) {
+        viewModel.updateDataSource(with: movieTapping.movie)
+    }
 }
 
     // MARK: - Collection view stuff extension
@@ -70,7 +86,7 @@ extension BaseListViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard indexPath.row > viewModel.movies.count - 3 else {
+        guard indexPath.row > viewModel.movies.count - 4 else {
             return
         }
         viewModel.paginateMovies()
@@ -128,11 +144,7 @@ extension BaseListViewController: UICollectionViewDelegate {
 }
 
 // MARK: - MovieCellDelegate extension
-extension BaseListViewController: MovieCellDelegate {
-    func favoriteClicked(with movie: MoviePresent) {
-        viewModel.favoriteClicked(with: movie)
-    }
-
+extension BaseListViewController {
     func showMovieDetails(for movie: MoviePresent) {
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let controller: MovieDetailsController = storyBoard.getController()
