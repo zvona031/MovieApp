@@ -28,11 +28,10 @@ class BaseListViewController: UIViewController {
         let dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie -> MovieCollectionViewCell? in
             let cell: MovieCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
             cell.config(with: movie)
-            cell.tapPublisher
+            cell.favoriteActionPublisher
                 .sink { tappedMovie in
-                    print("tap")
                     self.viewModel.favoriteClicked(with: tappedMovie)
-                    self.tapSubject.send(MovieTapping(movie: tappedMovie, itemType: self.viewModel.itemType))
+                    self.favoriteActionSubject.send(FavoritedMovieAction(movie: tappedMovie, itemType: self.viewModel.itemType))
                 }
                 .store(in: &cell.subscriptions)
             return cell
@@ -40,9 +39,9 @@ class BaseListViewController: UIViewController {
         return dataSource
     }()
 
-    private let tapSubject = PassthroughSubject<MovieTapping, Never>()
-    lazy var tapPublisher = {
-        return self.tapSubject.eraseToAnyPublisher()
+    private let favoriteActionSubject = PassthroughSubject<FavoritedMovieAction, Never>()
+    lazy var favoriteActionPublisher = {
+        return self.favoriteActionSubject.eraseToAnyPublisher()
     }()
 
     override func viewDidLoad() {
@@ -73,8 +72,8 @@ class BaseListViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 
-    func movieTapped(with movieTapping: MovieTapping) {
-        viewModel.updateDataSource(with: movieTapping.movie)
+    func handleFavoritedMovieAction(with favoriteAction: FavoritedMovieAction) {
+        viewModel.updateDataSource(with: favoriteAction.movie)
     }
 }
 

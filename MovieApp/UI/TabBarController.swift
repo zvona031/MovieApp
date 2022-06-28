@@ -9,11 +9,6 @@ import UIKit
 import Resolver
 import Combine
 
-struct MovieTapping {
-    let movie: MoviePresent
-    let itemType: TabBarItemType
-}
-
 class TabBarController: UITabBarController {
     var subscriptions = Set<AnyCancellable>()
 
@@ -35,9 +30,10 @@ class TabBarController: UITabBarController {
             default:
                 let controller: MovieListController = storyBoard.getController()
                 controller.config(with: Resolver.resolve(args: itemType))
-                controller.tapPublisher.sink { movieTapped in
-                    self.printaj(movie: movieTapped)
-                }.store(in: &subscriptions)
+                controller.favoriteActionPublisher.sink { favoritedAction in
+                    self.handleFavoritedMovieAction(action: favoritedAction)
+                }
+                .store(in: &subscriptions)
                 let navigationController = UINavigationController(rootViewController: controller)
                 controllers.append(navigationController)
             }
@@ -45,10 +41,10 @@ class TabBarController: UITabBarController {
         self.setViewControllers(controllers, animated: true)
     }
 
-    private func printaj(movie: MovieTapping) {
+    private func handleFavoritedMovieAction(action: FavoritedMovieAction) {
         viewControllers?.forEach({ controller in
-            guard let baseController = controller.children.first as? BaseListViewController, baseController.viewModel.itemType != movie.itemType else {return}
-            baseController.movieTapped(with: movie)
+            guard let baseController = controller.children.first as? BaseListViewController, baseController.viewModel.itemType != action.itemType else {return}
+            baseController.handleFavoritedMovieAction(with: action)
         })
     }
 }

@@ -20,7 +20,6 @@ class BaseViewModel {
 
     init(withType itemType: TabBarItemType) {
         self.itemType = itemType
-        registerObservers()
     }
 
     func getMovies() {
@@ -73,19 +72,8 @@ class BaseViewModel {
     }
 
     func favoriteClicked(with movie: MoviePresent) {
-//        NotificationCenter.default.post(name: .favoriteClicked, object: nil, userInfo: ["movie": movie, "itemType": itemType])
         updateDataSource(with: movie)
         updateDatabase(with: movie)
-    }
-
-    private func registerObservers() {
-//        NotificationCenter.default.addObserver(forName: .favoriteClicked, object: nil, queue: nil) { [weak self] notification in
-//            guard let welf = self,
-//                  let movie = notification.userInfo?["movie"] as? MoviePresent,
-//                  let itemType = notification.userInfo?["itemType"] as? TabBarItemType,
-//                  itemType != welf.itemType else { return }
-//            welf.updateDataSource(with: movie)
-//        }
     }
 
     func updateDataSource(with movie: MoviePresent) {

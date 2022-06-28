@@ -8,6 +8,7 @@
 import Foundation
 
 struct MoviePresent: Hashable {
+    var localId: String
     var id: Int
     var posterPath: String?
     var originalTitle: String
@@ -16,15 +17,17 @@ struct MoviePresent: Hashable {
     var isFavorite: Bool
 
     func hash(into hasher: inout Hasher) {
+        hasher.combine(localId)
         hasher.combine(id)
         hasher.combine(isFavorite)
     }
 
     static func == (lhs: MoviePresent, rhs: MoviePresent) -> Bool {
-        return lhs.id == rhs.id && lhs.isFavorite == rhs.isFavorite
+        return lhs.localId == rhs.localId && lhs.id == rhs.id && lhs.isFavorite == rhs.isFavorite
     }
 
     init(id: Int, posterPath: String?, originalTitle: String, voteAverage: Double, overview: String, isFavorite: Bool) {
+        localId = UUID().uuidString
         self.id = id
         self.posterPath = posterPath
         self.originalTitle = originalTitle
@@ -34,6 +37,7 @@ struct MoviePresent: Hashable {
     }
 
     init(with movie: MovieRemote, isFavorite: Bool) {
+        localId = UUID().uuidString
         self.id = movie.id
         self.posterPath = movie.posterPath
         self.originalTitle = movie.originalTitle
@@ -43,6 +47,7 @@ struct MoviePresent: Hashable {
     }
 
     init(with movie: MovieLocal) {
+        localId = UUID().uuidString
         self.id = movie.id
         self.posterPath = movie.posterPath
         self.originalTitle = movie.originalTitle

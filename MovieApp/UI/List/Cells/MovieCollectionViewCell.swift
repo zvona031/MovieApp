@@ -11,10 +11,10 @@ import Combine
 
 class MovieCollectionViewCell: UICollectionViewCell {
     private var movie: MoviePresent!
-    private let tapSubject = PassthroughSubject<MoviePresent, Never>()
     var subscriptions = Set<AnyCancellable>()
-    lazy var tapPublisher: AnyPublisher<MoviePresent, Never> = {
-        self.tapSubject.eraseToAnyPublisher()
+    private let favoriteActionSubject = PassthroughSubject<MoviePresent, Never>()
+    lazy var favoriteActionPublisher: AnyPublisher<MoviePresent, Never> = {
+        self.favoriteActionSubject.eraseToAnyPublisher()
     }()
 
     // MARK: - IBOutlets
@@ -34,6 +34,6 @@ class MovieCollectionViewCell: UICollectionViewCell {
 
     @IBAction func hearButtonTapped(_ sender: Any) {
         movie.toggleIsFavorite()
-        tapSubject.send(movie)
+        favoriteActionSubject.send(movie)
     }
 }
